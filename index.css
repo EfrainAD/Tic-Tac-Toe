@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+}
+
+.Tic-Tac-Toe-Boxs {
+    height: 25px;
+    width: 25px;
+}
