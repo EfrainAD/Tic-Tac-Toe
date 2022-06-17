@@ -9,4 +9,9 @@ table {
 .Tic-Tac-Toe-Boxs {
     height: 25px;
     width: 25px;
+    
+}
+.Tic-Tac-Toe-Boxs:hover {
+    background-color: red;
+    
 }
