@@ -1,5 +1,9 @@
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
+// Controls how many rows and columns the game has
+const rows = 3 
+const columns = 3
+
 
 const getCoordinates = (coordinate) => {
     //split the coordinate into there x and y componits.
@@ -226,11 +230,31 @@ const toggleTurn = () => {
         whosTurn = 'X'
 }
 
-//addEventListener to all the x/o boxs in the game. 
-for (let row = 1; row <= 3; row++) {
-    for (let column = 1; column <= 3; column++)
-        document.getElementById(`Row:${row}-Column:${column}`).addEventListener('click', boxClicked)
+//Make table ${rows} 
+//Make table ${column} each  `${n}colunm` in each row with for loop inside rows loop.
+//put a button in each column with class name `Row:${row}-Column:${column}` 
+//and add an eventEventListener to it.
+
+const table = document.querySelector('table')
+// table.style.backgroundColor = 'green'
+for (let row = 1; row <= rows; row++) {
+    const tr = table.insertRow()
+    for (let column = 1; column <= columns; column++) {
+        const td = tr.insertCell()
+        const button = document.createElement('button')
+        button.className = 'Tic-Tac-Toe-Boxs'
+        button.id = `Row:${row}-Column:${column}`
+        td.appendChild(button)
+        tr.appendChild(td)
+        button.addEventListener('click', boxClicked)
+    }
 }
+
+//addEventListener to all the x/o boxs in the game. 
+// for (let row = 1; row <= 3; row++) {
+//     for (let column = 1; column <= 3; column++)
+//         document.getElementById(`Row:${row}-Column:${column}`).addEventListener('click', boxClicked)
+// }
 //addEventListener to the reset game button
 document.getElementById('game-reset').addEventListener('click',gameReset)
 
