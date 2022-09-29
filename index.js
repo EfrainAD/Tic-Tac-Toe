@@ -1,9 +1,21 @@
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
 // Controls how many rows and columns the game has
-const rows = 3 
-const columns = 3
+const rows = 5 
+const columns = 8
+const winCondition = 3
 
+const newGetCoordinates = (coordinate) => {
+    //split the coordinate into there x and y componits.
+    p(coordinate)
+    coordinate = coordinate.replace(/[^\d:]/g, '') //Took out the abc's by only keeping digits and ':'
+    coordinate = coordinate.replace(':', '')       // took out only the first : so ParseInt would work
+    const row = parseInt(coordinate, 10) 
+    coordinate = coordinate.split(':').pop()       //Now that this nicly blocked ParseInt, remove it for the next number set.
+    const column = parseInt(coordinate, 10)
+
+    return [row, column]
+}
 
 const getCoordinates = (coordinate) => {
     //split the coordinate into there x and y componits.
@@ -40,33 +52,50 @@ const getCoordinates = (coordinate) => {
     return buttonsCoordinates
 }
 const checkWinHorizontally = (buttonsCoordinates) => {
-    if (document.getElementById(buttonsCoordinates.rightBlock)){ //check if there is a right button
-        if ((document.getElementById(buttonsCoordinates.rightBlock)).innerText === whosTurn) {
-            //if right block is a hit there is only two case to give a win.
-            if (document.getElementById(buttonsCoordinates.rightPlusBlock)) { //check if it exist
-                if ((document.getElementById(buttonsCoordinates.rightPlusBlock)).innerText === whosTurn) {
-                    wonGame()
-                    return true
-                }
-            }
-            if (document.getElementById(buttonsCoordinates.leftBlock)) { //check if it exist
-                if ((document.getElementById(buttonsCoordinates.leftBlock)).innerText === whosTurn) {
-                    wonGame()
-                    return true
-                }
-            }
-        } 
-    }   
-    if (document.getElementById(buttonsCoordinates.leftBlock)){ //check if there is a left button
-        if ((document.getElementById(buttonsCoordinates.leftBlock)).innerText === whosTurn) {
-            if (document.getElementById(buttonsCoordinates.leftPlusBlock)) { //check if it exist
-                if ((document.getElementById(buttonsCoordinates.leftPlusBlock)).innerText === whosTurn) {
-                    wonGame()
-                    return true
-                }
-            }
-        }
+    let leftCount = 0 
+    // countss the x or o to the left of the button that was clicked.
+    let rightCount = 0 
+    // countss the x or o to the right of the button that was clicked.
+    const [row, column] = newGetCoordinates(buttonsCoordinates)
+
+    // loop that moves lelt as long as innerText is === whosTurn, 
+    // And for everone one add 1 to leftCounter
+
+    // setting up the starting values for the column index and colrdinate element
+    let columnIndex = column
+    let rowIndex = row
+    let coordinateElement = document.getElementById(`Row:${row}-Column:${--columnIndex}`)
+    
+    while (coordinateElement) {
+        if (coordinateElement.innerText === whosTurn)
+            leftCount++
+        else
+            break
+        coordinateElement = document.getElementById(`Row:${row}-Column:${--columnIndex}`)
     }
+
+    // loop that moves right as long as innerText is === whosTurn, 
+    // And for every one that match add 1 to rightCounter
+    
+    // Resetting column index and colrdinate element back to there starting values
+    columnIndex = column
+    coordinateElement = document.getElementById(`Row:${row}-Column:${++columnIndex}`)
+
+    while (coordinateElement) {
+        if (coordinateElement.innerText === whosTurn)
+            rightCount++
+        else
+            break
+        coordinateElement = document.getElementById(`Row:${row}-Column:${++columnIndex}`)
+        p(rightCount)
+    }
+    //Then we we add them up. leftCounter and rightCounter + 1 for the one the player just put down.
+    // Return true if counter is = or larger then winCondition 
+    if ((leftCount + 1 + rightCount) >= winCondition) {
+        wonGame()
+        return true
+    }
+    else return false
 }
 const checkWinVertically = (buttonsCoordinates) => {
     // const buttonsCoordinates = getCoordinates(buttonsCoordinate)
@@ -178,7 +207,7 @@ const checkwinDiagonally = (buttonsCoordinates) => {
 const ifWonGame = (buttonsCoordinate) => {
     const buttonsCoordinates = getCoordinates(buttonsCoordinate)
     
-    if (checkWinHorizontally(buttonsCoordinates))
+    if (checkWinHorizontally(buttonsCoordinate))
         return true
     else if (checkWinVertically(buttonsCoordinates))
         return true
