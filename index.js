@@ -1,9 +1,9 @@
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
 // Controls how many rows and columns the game has
-const rows = 5 
-const columns = 8
-const winCondition = 3
+let rows = 5 
+let columns = 8
+let winCondition = 3
 
 const getCoordinates = (coordinate) => {
     //split the coordinate into there x and y componits.
@@ -218,7 +218,13 @@ const wonGame = () => {
 }       
 //Reset the whole game over
 const gameReset = () => {
-    window.location.reload()   
+    // change varibles based the the field inputs
+    rows = rowField.value
+    columns = columnField.value
+    winCondition = winConditionField.value
+    // Remove the gameboard and remake it.
+    createGameBoard()
+    // window.location.reload()
 } 
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
@@ -235,6 +241,28 @@ const boxClicked = (e) => {
         document.getElementById('Message-Board').innerText = `It's ${whosTurn} players turn`    //update display whos turn is next
     }
 }
+const createGameBoard = () => {
+    const table = document.querySelector('table')
+    // Remove the old board if there is one.
+    if (table.firstChild) {
+        table.removeChild(table.firstChild)
+    }
+    //Every spot on the board will have a id name `Row:${row}-Column:${column}`
+    //Then we add an eventEventListener to each spot.
+    // table.style.backgroundColor = 'green'
+    for (let row = 1; row <= rows; row++) {
+        const tr = table.insertRow()
+        for (let column = 1; column <= columns; column++) {
+            const td = tr.insertCell()
+            const button = document.createElement('button')
+            button.className = 'Tic-Tac-Toe-Boxs'
+            button.id = `Row:${row}-Column:${column}`
+            td.appendChild(button)
+            tr.appendChild(td)
+            button.addEventListener('click', boxClicked)
+        }
+    }
+}
 const disableGameBoard = () => {
     buttons = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
     for (let i = 0; i < buttons.length; i++) 
@@ -247,23 +275,9 @@ const toggleTurn = () => {
         whosTurn = 'X'
 }
 
-//Create the game board.
-//Chech spot on the board will have a class name `Row:${row}-Column:${column}`
-//Then we add an eventEventListener to each spot.
-const table = document.querySelector('table')
-// table.style.backgroundColor = 'green'
-for (let row = 1; row <= rows; row++) {
-    const tr = table.insertRow()
-    for (let column = 1; column <= columns; column++) {
-        const td = tr.insertCell()
-        const button = document.createElement('button')
-        button.className = 'Tic-Tac-Toe-Boxs'
-        button.id = `Row:${row}-Column:${column}`
-        td.appendChild(button)
-        tr.appendChild(td)
-        button.addEventListener('click', boxClicked)
-    }
-}
+//create the game board
+createGameBoard()
+
 //addEventListener to the reset game button
 document.getElementById('game-reset').addEventListener('click',gameReset)
 //add value to win condition field, and eventListener
@@ -273,6 +287,5 @@ const columnField = document.querySelector('#columns')
 winConditionField.value = winCondition
 rowField.value = rows
 columnField.value = columns
-// winConditionField.addEventListener()
 
 function p (str) {(console.log(str))}
