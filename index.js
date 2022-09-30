@@ -7,7 +7,6 @@ const winCondition = 3
 
 const getCoordinates = (coordinate) => {
     //split the coordinate into there x and y componits.
-    p(coordinate)
     coordinate = coordinate.replace(/[^\d:]/g, '') //Took out the abc's by only keeping digits and ':'
     coordinate = coordinate.replace(':', '')       // took out only the first : so ParseInt would work
     const row = parseInt(coordinate, 10) 
