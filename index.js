@@ -212,7 +212,7 @@ const ifTiedGame = () => {
     }
     return false
 }
-//This is here becuase there are more then one play a palyer can win. 
+//This is here becuase there are more then one play a player can win. 
 const wonGame = () => {
     document.getElementById('Message-Board').innerText = `${whosTurn} player Won!`
 }       
@@ -235,7 +235,6 @@ const boxClicked = (e) => {
         document.getElementById('Message-Board').innerText = `It's ${whosTurn} players turn`    //update display whos turn is next
     }
 }
-
 const disableGameBoard = () => {
     buttons = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
     for (let i = 0; i < buttons.length; i++) 
@@ -251,7 +250,6 @@ const toggleTurn = () => {
 //Create the game board.
 //Chech spot on the board will have a class name `Row:${row}-Column:${column}`
 //Then we add an eventEventListener to each spot.
-
 const table = document.querySelector('table')
 // table.style.backgroundColor = 'green'
 for (let row = 1; row <= rows; row++) {
@@ -268,5 +266,13 @@ for (let row = 1; row <= rows; row++) {
 }
 //addEventListener to the reset game button
 document.getElementById('game-reset').addEventListener('click',gameReset)
+//add value to win condition field, and eventListener
+const winConditionField = document.querySelector('#win-condition')
+const rowField = document.querySelector('#rows')
+const columnField = document.querySelector('#columns')
+winConditionField.value = winCondition
+rowField.value = rows
+columnField.value = columns
+// winConditionField.addEventListener()
 
 function p (str) {(console.log(str))}
