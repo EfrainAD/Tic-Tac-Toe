@@ -3,7 +3,7 @@ let turnCounter = 0; //To know
 // Controls how many rows and columns the game has
 const rows = 5 
 const columns = 8
-const winCondition = 3
+const winCondition = 5
 
 const newGetCoordinates = (coordinate) => {
     //split the coordinate into there x and y componits.
@@ -63,7 +63,6 @@ const checkWinHorizontally = (buttonsCoordinates) => {
 
     // setting up the starting values for the column index and colrdinate element
     let columnIndex = column
-    let rowIndex = row
     let coordinateElement = document.getElementById(`Row:${row}-Column:${--columnIndex}`)
     
     while (coordinateElement) {
@@ -87,7 +86,6 @@ const checkWinHorizontally = (buttonsCoordinates) => {
         else
             break
         coordinateElement = document.getElementById(`Row:${row}-Column:${++columnIndex}`)
-        p(rightCount)
     }
     //Then we we add them up. leftCounter and rightCounter + 1 for the one the player just put down.
     // Return true if counter is = or larger then winCondition 
@@ -98,44 +96,88 @@ const checkWinHorizontally = (buttonsCoordinates) => {
     else return false
 }
 const checkWinVertically = (buttonsCoordinates) => {
-    // const buttonsCoordinates = getCoordinates(buttonsCoordinate)
-    //p(`coordinate above: ${document.getElementById(buttonsCoordinates.upBlock).innerText}`)
-    if (document.getElementById(buttonsCoordinates.upBlock)){ //check if there is a top button
-        //p(`There is a block above this one`)
-        if ((document.getElementById(buttonsCoordinates.upBlock)).innerText === whosTurn) {
-            //p('This is an '+whosTurn+' above me.')
-            //if right block is a hit there is only two case to give a win.
-            if (document.getElementById(buttonsCoordinates.upPlusBlock)) { //check if it exist
-                if ((document.getElementById(buttonsCoordinates.upPlusBlock)).innerText === whosTurn) {
-                    //p('This is an '+whosTurn+' to the up up of me.')
-                    wonGame()
-                    return true
-                }
-            }
-            if (document.getElementById(buttonsCoordinates.downBlock)) { //check if it exist
-                if ((document.getElementById(buttonsCoordinates.downBlock)).innerText === whosTurn) {
-                    //p('This is an '+whosTurn+' to the down of me.')
-                    wonGame()
-                    return true
-                }
-            }
-        } 
-    }   
-    if (document.getElementById(buttonsCoordinates.downBlock)){ //check if there is a left button
-        //p('LLLLLLeft '+whosTurn+' to the down of me. ' )
-        if ((document.getElementById(buttonsCoordinates.downBlock)).innerText === whosTurn) {
-            //p('LLLLLLeft '+whosTurn+' to the left of me. ' )
-            //if the left block is a hit there is only one case to give a win. (The other one already been checked above)
-            if (document.getElementById(buttonsCoordinates.downPlusBlock)) { //check if it exist
-                if ((document.getElementById(buttonsCoordinates.downPlusBlock)).innerText === whosTurn) {
-                    //p('This is an '+whosTurn+' to the donw donw  of me.')
-                    wonGame()
-                    return true
-                }
-            }
-        }
+    
+    let upwordsCount = 0 
+    let downwordsCount = 0 
+    const [row, column] = newGetCoordinates(buttonsCoordinates)
+
+    // loop that moves lelt as long as innerText is === whosTurn, 
+    // And for everone one add 1 to leftCounter
+
+    // setting up the starting values for the column index and colrdinate element
+    let rowIndex = row
+    let coordinateElement = document.getElementById(`Row:${--rowIndex}-Column:${column}`)
+    
+    // Counts players x/o above where the player just played.
+    while (coordinateElement) {
+        if (coordinateElement.innerText === whosTurn)
+            upwordsCount++
+        else
+            break
+        coordinateElement = document.getElementById(`Row:${--rowIndex}-Column:${column}`)
     }
+
+    // loop that moves that are below as long as innerText is === whosTurn, 
+    // And for every one that match add 1 to downwordsCounter
+    
+    // Resetting rows index and colrdinate element back to there starting values
+    rowIndex = row
+    coordinateElement = document.getElementById(`Row:${++rowIndex}-Column:${column}`)
+
+    while (coordinateElement) {
+        if (coordinateElement.innerText === whosTurn)
+            downwordsCount++
+        else
+            break
+        coordinateElement = document.getElementById(`Row:${++rowIndex}-Column:${column}`)
+    }
+    //Then we we add them up. leftCounter and rightCounter + 1 for the one the player just put down.
+    // Return true if counter is = or larger then winCondition 
+    if ((upwordsCount + 1 + downwordsCount) >= winCondition) {
+        wonGame()
+        return true
+    }
+    else return false
 }
+// const checkWinVertically = (buttonsCoordinates) => {
+//     // const buttonsCoordinates = getCoordinates(buttonsCoordinate)
+//     //p(`coordinate above: ${document.getElementById(buttonsCoordinates.upBlock).innerText}`)
+//     if (document.getElementById(buttonsCoordinates.upBlock)){ //check if there is a top button
+//         //p(`There is a block above this one`)
+//         if ((document.getElementById(buttonsCoordinates.upBlock)).innerText === whosTurn) {
+//             //p('This is an '+whosTurn+' above me.')
+//             //if right block is a hit there is only two case to give a win.
+//             if (document.getElementById(buttonsCoordinates.upPlusBlock)) { //check if it exist
+//                 if ((document.getElementById(buttonsCoordinates.upPlusBlock)).innerText === whosTurn) {
+//                     //p('This is an '+whosTurn+' to the up up of me.')
+//                     wonGame()
+//                     return true
+//                 }
+//             }
+//             if (document.getElementById(buttonsCoordinates.downBlock)) { //check if it exist
+//                 if ((document.getElementById(buttonsCoordinates.downBlock)).innerText === whosTurn) {
+//                     //p('This is an '+whosTurn+' to the down of me.')
+//                     wonGame()
+//                     return true
+//                 }
+//             }
+//         } 
+//     }   
+//     if (document.getElementById(buttonsCoordinates.downBlock)){ //check if there is a left button
+//         //p('LLLLLLeft '+whosTurn+' to the down of me. ' )
+//         if ((document.getElementById(buttonsCoordinates.downBlock)).innerText === whosTurn) {
+//             //p('LLLLLLeft '+whosTurn+' to the left of me. ' )
+//             //if the left block is a hit there is only one case to give a win. (The other one already been checked above)
+//             if (document.getElementById(buttonsCoordinates.downPlusBlock)) { //check if it exist
+//                 if ((document.getElementById(buttonsCoordinates.downPlusBlock)).innerText === whosTurn) {
+//                     //p('This is an '+whosTurn+' to the donw donw  of me.')
+//                     wonGame()
+//                     return true
+//                 }
+//             }
+//         }
+//     }
+// }
 const checkwinDiagonally = (buttonsCoordinates) => {
     //right Diagonal 
     if (document.getElementById(buttonsCoordinates.diagonalRightUpBlock)){ //check if there is a right button
@@ -209,7 +251,7 @@ const ifWonGame = (buttonsCoordinate) => {
     
     if (checkWinHorizontally(buttonsCoordinate))
         return true
-    else if (checkWinVertically(buttonsCoordinates))
+    else if (checkWinVertically(buttonsCoordinate))
         return true
     else if (checkwinDiagonally(buttonsCoordinates))
         return true
