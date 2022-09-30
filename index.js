@@ -5,7 +5,7 @@ const rows = 5
 const columns = 8
 const winCondition = 3
 
-const newGetCoordinates = (coordinate) => {
+const getCoordinates = (coordinate) => {
     //split the coordinate into there x and y componits.
     p(coordinate)
     coordinate = coordinate.replace(/[^\d:]/g, '') //Took out the abc's by only keeping digits and ':'
@@ -16,47 +16,12 @@ const newGetCoordinates = (coordinate) => {
 
     return [row, column]
 }
-
-const getCoordinates = (coordinate) => {
-    //split the coordinate into there x and y componits.
-    coordinate = coordinate.replace(/[^\d:]/g, '') //Took out the abc's by only keeping digits and ':'
-    coordinate = coordinate.replace(':', '')       // took out only the first : so ParseInt would work
-    const x = parseInt(coordinate, 10) 
-    coordinate = coordinate.split(':').pop()       //Now that this nicly blocked ParseInt, remove it for the next number set.
-    const y = parseInt(coordinate, 10)
-    
-    const buttonsCoordinates = { //The coordinates need ot find out if there 3 in a row
-        //horizontal set
-        rightBlock: `Row:${x}-Column:${y+1}`,
-        rightPlusBlock: `Row:${x}-Column:${y+2}`,
-        leftBlock: `Row:${x}-Column:${y-1}`,
-        leftPlusBlock: `Row:${x}-Column:${y-2}`,
-
-        //vertical set
-        upBlock: `Row:${x-1}-Column:${y}`,
-        upPlusBlock: `Row:${x-2}-Column:${y}`,
-        downBlock: `Row:${x+1}-Column:${y}`,
-        downPlusBlock: `Row:${x+2}-Column:${y}`,
-
-        //diagnal to the right set
-        diagonalRightUpBlock: `Row:${x-1}-Column:${y+1}`,
-        diagonalRightUpPlusBlock: `Row:${x-2}-Column:${y+2}`,
-        diagonalLeftDownBlock: `Row:${x+1}-Column:${y-1}`,
-        diagonalLeftDownPlusBlock: `Row:${x+2}-Column:${y-2}`,
-        //diagnal to the left sets=
-        diagonalLeftUpBlock: `Row:${x-1}-Column:${y-1}`,
-        diagonalLeftUpPlusBlock: `Row:${x-2}-Column:${y-2}`,
-        diagonalRightDownBlock: `Row:${x+1}-Column:${y+1}`,
-        diagonalRightDownPlusBlock: `Row:${x+2}-Column:${y+2}`
-    };
-    return buttonsCoordinates
-}
 const checkWinHorizontally = (buttonsCoordinates) => {
     let leftCount = 0 
     // countss the x or o to the left of the button that was clicked.
     let rightCount = 0 
     // countss the x or o to the right of the button that was clicked.
-    const [row, column] = newGetCoordinates(buttonsCoordinates)
+    const [row, column] = getCoordinates(buttonsCoordinates)
 
     // loop that moves lelt as long as innerText is === whosTurn, 
     // And for everone one add 1 to leftCounter
@@ -98,7 +63,7 @@ const checkWinHorizontally = (buttonsCoordinates) => {
 const checkWinVertically = (buttonsCoordinates) => {
     let upwordsCount = 0 
     let downwordsCount = 0 
-    const [row, column] = newGetCoordinates(buttonsCoordinates)
+    const [row, column] = getCoordinates(buttonsCoordinates)
 
     // loop that moves lelt as long as innerText is === whosTurn, 
     // And for everone one add 1 to leftCounter
@@ -142,7 +107,7 @@ const checkwinDiagonallyToTheLeft = (buttonsCoordinate) => {
     // We are going to count left first then right.
     let upwordsCount = 0 
     let downwordsCount = 0 
-    const [row, column] = newGetCoordinates(buttonsCoordinate)
+    const [row, column] = getCoordinates(buttonsCoordinate)
 
     // loop through moves as long as innerText is === whosTurn, 
     // And for everone one add 1 to the appropriate Counter
@@ -186,7 +151,7 @@ const checkwinDiagonallyToTheRight = (buttonsCoordinate) => {
     // We are going to count left first then right.
     let upwordsCount = 0 
     let downwordsCount = 0 
-    const [row, column] = newGetCoordinates(buttonsCoordinate)
+    const [row, column] = getCoordinates(buttonsCoordinate)
 
     // loop through moves as long as innerText is === whosTurn, 
     // And for everone one add 1 to the appropriate Counter
@@ -258,7 +223,6 @@ const gameReset = () => {
 } 
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
-    
     selectedBox = document.getElementById(e.target.id)
     selectedBox.innerText = whosTurn    //Mark the box with X or O
     selectedBox.disabled = true         //Disable the box just clicked on, so it can't be used.
@@ -285,10 +249,9 @@ const toggleTurn = () => {
         whosTurn = 'X'
 }
 
-//Make table ${rows} 
-//Make table ${column} each  `${n}colunm` in each row with for loop inside rows loop.
-//put a button in each column with class name `Row:${row}-Column:${column}` 
-//and add an eventEventListener to it.
+//Create the game board.
+//Chech spot on the board will have a class name `Row:${row}-Column:${column}`
+//Then we add an eventEventListener to each spot.
 
 const table = document.querySelector('table')
 // table.style.backgroundColor = 'green'
@@ -304,12 +267,6 @@ for (let row = 1; row <= rows; row++) {
         button.addEventListener('click', boxClicked)
     }
 }
-
-//addEventListener to all the x/o boxs in the game. 
-// for (let row = 1; row <= 3; row++) {
-//     for (let column = 1; column <= 3; column++)
-//         document.getElementById(`Row:${row}-Column:${column}`).addEventListener('click', boxClicked)
-// }
 //addEventListener to the reset game button
 document.getElementById('game-reset').addEventListener('click',gameReset)
 
