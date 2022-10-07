@@ -207,7 +207,7 @@ const ifWonGame = (buttonsCoordinate) => {
 //function check if tie game.                 
 const ifTiedGame = () => {
     if (turnCounter === (document.querySelectorAll('.Tic-Tac-Toe-Boxs').length)) {
-        document.getElementById('Message-Board').innerText = 'This game is a tie!'
+        updateMessageBoard('tied')
         return true
     }
     return false
@@ -254,7 +254,9 @@ const updateMessageBoard = (mgs) => {
     if (mgs === 'whosTurn') 
         messageBoard.innerText = `It's ${whosTurn} players turn`
     else if (mgs === 'winner')
-    messageBoard.innerText = `${whosTurn} player Won!`
+        messageBoard.innerText = `${whosTurn} player Won!`
+    else if (mgs === 'tied')
+        messageBoard.innerText = 'This game is a tie!'
     else 
         messageBoard.innerText = mgs
 
