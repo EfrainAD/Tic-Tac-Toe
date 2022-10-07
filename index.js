@@ -214,7 +214,7 @@ const ifTiedGame = () => {
 }
 //This is here becuase there are more then one play a player can win. 
 const wonGame = () => {
-    document.getElementById('Message-Board').innerText = `${whosTurn} player Won!`
+    updateMessageBoard('winner')
 }       
 //Reset the whole game over
 const gameReset = () => {
@@ -253,6 +253,8 @@ const updateMessageBoard = (mgs) => {
     //update display to whos turn it is next
     if (mgs === 'whosTurn') 
         messageBoard.innerText = `It's ${whosTurn} players turn`
+    else if (mgs === 'winner')
+    messageBoard.innerText = `${whosTurn} player Won!`
     else 
         messageBoard.innerText = mgs
 
