@@ -6,17 +6,24 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Tic-Tac-Toe</h1>
-    <h2 id="Message-Board">It's X players turn</h2>
-
-    <!-- Game Board - This is the tic-tac-teo Board -->
-    <table></table> 
-
-    <!-- Game controls -->
-    <button id="game-reset">New Game!</button>
-    <label for="rows">Rows</label><input id="rows" type="number">
-    <label for="columns">Columns</label><input id="columns" type="number">
-    <label for="win-condition">Win Condition</label><input id="win-condition" type="number">
+  <div id="page">
+    <div></div>
+    <div id="board">
+      <h1>Tic-Tac-Toe</h1>
+      <h2 id="Message-Board">It's X players turn</h2>
+  
+      <!-- Game Board - This is the tic-tac-teo Board -->
+      <table></table> 
+    </div>
+  
+      <!-- Game controls -->
+      <div id="game-controls">
+        <button id="game-reset">New Game!</button>
+        <label for="rows">Rows</label><input id="rows" type="number">
+        <label for="columns">Columns</label><input id="columns" type="number">
+        <label for="win-condition">Win Condition</label><input id="win-condition" type="number">
+      </div>
+  </div>
     
     <script src="index.js"></script>
 </body>
