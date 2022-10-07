@@ -1,8 +1,10 @@
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
+let XsWinCount = 0 // Tracks the number of times Player won the game.
+let YsWinCount = 0
 // Controls how many rows and columns the game has
 let rows = 5 
-let columns = 8
+let columns = 5
 let winCondition = 3
 
 const getCoordinates = (coordinate) => {
@@ -215,7 +217,22 @@ const ifTiedGame = () => {
 //This is here becuase there are more then one play a player can win. 
 const wonGame = () => {
     updateMessageBoard('winner')
-}       
+    updatePlayersWinCount()
+    updateScoreBoard()
+}
+const updateScoreBoard = () => {
+    if (whosTurn === 'X') {
+        document.querySelector('#x-win-count').innerText = `X Won ${XsWinCount} times`
+    } else {
+        document.querySelector('#y-win-count').innerText = `Y Won ${YsWinCount} times`
+    }
+}
+const updatePlayersWinCount = () => {
+    if (whosTurn === 'X')
+        XsWinCount++
+    else
+        YsWinCount++
+}
 //Reset the whole game over
 const gameReset = () => {
     whosTurn = 'X'
