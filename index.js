@@ -224,8 +224,9 @@ const gameReset = () => {
     // change varibles based the the field inputs
     rows = rowField.value
     columns = columnField.value
-    if ( winConditionField.value === 1) {
+    if ( winConditionField.value === '1') {
         winCondition = 3
+        winConditionField.value = 3
     }
     else
         winCondition = winConditionField.value
