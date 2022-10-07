@@ -218,10 +218,17 @@ const wonGame = () => {
 }       
 //Reset the whole game over
 const gameReset = () => {
+    whosTurn = 'X'
+    turnCounter = 0
+    updateMessageBoard('whosTurn')
     // change varibles based the the field inputs
     rows = rowField.value
     columns = columnField.value
-    winCondition = winConditionField.value
+    if ( winConditionField.value === 1) {
+        winCondition = 3
+    }
+    else
+        winCondition = winConditionField.value
     // Remove the gameboard and remake it.
     createGameBoard()
     // window.location.reload()
@@ -238,8 +245,18 @@ const boxClicked = (e) => {
         disableGameBoard()
     } else {
         toggleTurn()    //updates whos turn tracker to whos turn is next
-        document.getElementById('Message-Board').innerText = `It's ${whosTurn} players turn`    //update display whos turn is next
+        updateMessageBoard('whosTurn')
     }
+}
+const updateMessageBoard = (mgs) => {
+    const messageBoard = document.getElementById('Message-Board')
+    //update display to whos turn it is next
+    if (mgs === 'whosTurn') 
+        messageBoard.innerText = `It's ${whosTurn} players turn`
+    else 
+        messageBoard.innerText = mgs
+
+
 }
 const createGameBoard = () => {
     const table = document.querySelector('table')
