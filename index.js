@@ -1,4 +1,4 @@
-import {moveByAI} from './ai.js';
+import {AI} from './Ai.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know

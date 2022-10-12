@@ -1,13 +1,15 @@
+import getCoordinates from './getCoordinates.js'
 export class WinnerCheck {
      constructor (winCondition) {
           this.winCondition = winCondition
+        //   getCoordinate('hi pass')
      }
      checkWinHorizontally = (buttonsCoordinates, whosTurn) => {
           let leftCount = 0 
           // countss the x or o to the left of the button that was clicked.
           let rightCount = 0 
           // countss the x or o to the right of the button that was clicked.
-          const [row, column] = this.getCoordinates(buttonsCoordinates)
+          const [row, column] = getCoordinates(buttonsCoordinates)
       
           // loop that moves lelt as long as innerText is === whosTurn, 
           // And for everone one add 1 to leftCounter
@@ -48,7 +50,7 @@ export class WinnerCheck {
      checkWinVertically = (buttonsCoordinates, whosTurn) => {
          let upwordsCount = 0 
          let downwordsCount = 0 
-         const [row, column] = this.getCoordinates(buttonsCoordinates)
+         const [row, column] = getCoordinates(buttonsCoordinates)
      
          // loop that moves lelt as long as innerText is === whosTurn, 
          // And for everone one add 1 to leftCounter
@@ -91,7 +93,7 @@ export class WinnerCheck {
          // We are going to count left first then right.
          let upwordsCount = 0 
          let downwordsCount = 0 
-         const [row, column] = this.getCoordinates(buttonsCoordinate)
+         const [row, column] = getCoordinates(buttonsCoordinate)
      
          // loop through moves as long as innerText is === whosTurn, 
          // And for everone one add 1 to the appropriate Counter
@@ -134,7 +136,7 @@ export class WinnerCheck {
          // We are going to count left first then right.
          let upwordsCount = 0 
          let downwordsCount = 0 
-         const [row, column] = this.getCoordinates(buttonsCoordinate)
+         const [row, column] = getCoordinates(buttonsCoordinate)
      
          // loop through moves as long as innerText is === whosTurn, 
          // And for everone one add 1 to the appropriate Counter
@@ -177,16 +179,6 @@ export class WinnerCheck {
          // check win diagonally to the right and if not a win do so for the other side. return false if no win.
          return this.checkwinDiagonallyToTheLeft(buttonsCoordinate, whosTurn) || this.checkwinDiagonallyToTheRight(buttonsCoordinate, whosTurn)
      }
-     getCoordinates = (coordinate) => {
-          //split the coordinate into there x and y componits.
-          coordinate = coordinate.replace(/[^\d:]/g, '') //Took out the abc's by only keeping digits and ':'
-          coordinate = coordinate.replace(':', '')       // took out only the first : so ParseInt would work
-          const row = parseInt(coordinate, 10) 
-          coordinate = coordinate.split(':').pop()       //Now that this nicly blocked ParseInt, remove it for the next number set.
-          const column = parseInt(coordinate, 10)
-      
-          return [row, column]
-      }
      check = (buttonsCoordinate, whosTurn) => {
           if (this.checkWinHorizontally(buttonsCoordinate, whosTurn))
               return true
