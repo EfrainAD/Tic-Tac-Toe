@@ -1,4 +1,4 @@
-import {AI} from './Ai.js';
+import moveByAI from './ai.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
@@ -8,6 +8,7 @@ let YsWinCount = 0
 let rows = 5 
 let columns = 5
 const winnerCheck = new WinnerCheck(3)
+let playAI = true;
 
 //function check if tie game.                 
 const ifTiedGame = () => {
@@ -56,9 +57,9 @@ const gameReset = () => {
     createGameBoard()
     // window.location.reload()
 } 
-//////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
-const boxClicked = (e) => {
-    const selectedBox = document.getElementById(e.target.id)
+const placeMove = (id) => {
+    const selectedBox = document.getElementById(id)
+    // placeMove(selectedBox)
     selectedBox.innerText = whosTurn    //Mark the box with X or O
     selectedBox.disabled = true         //Disable the box just clicked on, so it can't be used.
     turnCounter++                       //Updats the turnCounter so the game end if there is a tie.
@@ -75,6 +76,10 @@ const boxClicked = (e) => {
         toggleTurn()    //updates whos turn tracker to whos turn is next
         updateMessageBoard('whosTurn')
     }
+}
+//////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
+const boxClicked = (e) => {
+    placeMove(e.target.id)
 }
 const updateMessageBoard = (mgs) => {
     const messageBoard = document.getElementById('Message-Board')
@@ -118,10 +123,13 @@ const disableGameBoard = () => {
         buttons[i].disabled = true
 }
 const toggleTurn = () => {
-    if (whosTurn === 'X') 
-        whosTurn = 'O'
-    else
-        whosTurn = 'X'
+    if (playAI) {
+        if (whosTurn === 'X') 
+            whosTurn = 'O'
+        else
+            whosTurn = 'X'
+
+    }
 }
 
 //create the game board

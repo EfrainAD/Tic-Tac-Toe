@@ -1,6 +1,12 @@
-export const moveByAI = (number) => {
-     document.getElementById('Message-Board').innerHTML = time(number)
-}
-const time = (num) => {
-     return num * num
+// import getCoordinates from './getCoordinates.js'
+export default (rows, columns) => {
+     let move = null
+     
+     while (!move) {
+          const moveRow = Math.floor(Math.random() * rows + 1)
+          const moveColumn = Math.floor(Math.random() * columns + 1)
+          const buttonId = `Row:${row}-Column:${column}`
+          if (document.getElementById(buttonId).innerText === '')
+               return buttonId
+     }
 }
