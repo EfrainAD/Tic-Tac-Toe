@@ -1,3 +1,4 @@
+// import ai from './ai.js';
 import moveByAI from './ai.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
@@ -8,7 +9,7 @@ let YsWinCount = 0
 let rows = 5 
 let columns = 5
 const winnerCheck = new WinnerCheck(3)
-let playAI = true;
+let playAI = 'O';
 
 //function check if tie game.                 
 const ifTiedGame = () => {
@@ -63,8 +64,6 @@ const placeMove = (id) => {
     selectedBox.innerText = whosTurn    //Mark the box with X or O
     selectedBox.disabled = true         //Disable the box just clicked on, so it can't be used.
     turnCounter++                       //Updats the turnCounter so the game end if there is a tie.
-    
-    //if there is a winner or the game tied. 
     if (winnerCheck.check(selectedBox.id, whosTurn)) {
         wonGame()
         disableGameBoard()
@@ -73,13 +72,17 @@ const placeMove = (id) => {
         tiedGame()
         disableGameBoard()
     } else {
-        toggleTurn()    //updates whos turn tracker to whos turn is next
-        updateMessageBoard('whosTurn')
+        toggleTurn()
     }
 }
+//if there is a winner or the game tied. 
+// const  isgameFinished = () => {
+
+// }}
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
     placeMove(e.target.id)
+    // isgameFinished()
 }
 const updateMessageBoard = (mgs) => {
     const messageBoard = document.getElementById('Message-Board')
@@ -122,18 +125,26 @@ const disableGameBoard = () => {
     for (let i = 0; i < buttons.length; i++) 
         buttons[i].disabled = true
 }
-const toggleTurn = () => {
-    if (playAI) {
-        if (whosTurn === 'X') 
+const toggleWhosTurn = () => {
+    if (whosTurn === 'X') 
             whosTurn = 'O'
-        else
-            whosTurn = 'X'
-
+    else
+        whosTurn = 'X'
+}
+const toggleTurn = () => {
+    toggleWhosTurn()
+    updateMessageBoard('whosTurn')
+    console.log(playAI, whosTurn)
+    if (playAI === whosTurn) {
+        console.log('h')
+        placeMove(moveByAI(rows, columns))
     }
 }
 
 //create the game board
 createGameBoard()
+if (playAI === 'X')
+    placeMove(moveByAI(rows, columns))
 
 //addEventListener to the reset game button
 document.getElementById('game-reset').addEventListener('click',gameReset)
