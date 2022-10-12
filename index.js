@@ -1,3 +1,4 @@
+import {moveByAI} from './ai.js';
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
 let XsWinCount = 0 // Tracks the number of times Player won the game.
