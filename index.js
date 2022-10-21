@@ -8,7 +8,8 @@ let YsWinCount = 0
 // Controls how many rows and columns the game has
 let rows = 5 
 let columns = 5
-const winnerCheck = new WinnerCheck(3)
+let winCondition = 3
+const winnerCheck = new WinnerCheck()
 let playAI = 'O';
 
 //function check if tie game.                 
@@ -49,11 +50,11 @@ const gameReset = () => {
     rows = rowField.value
     columns = columnField.value
     if ( winConditionField.value === '1') {
-        winnerCheck.winCondition = 3
+        winCondition = 3
         winConditionField.value = 3
     }
     else
-        winnerCheck.winCondition = winConditionField.value
+        winCondition = winConditionField.value
     // Remove the gameboard and remake it.
     createGameBoard()
     // window.location.reload()
@@ -64,7 +65,7 @@ const placeMove = (id) => {
     selectedBox.innerText = whosTurn    //Mark the box with X or O
     selectedBox.disabled = true         //Disable the box just clicked on, so it can't be used.
     turnCounter++                       //Updats the turnCounter so the game end if there is a tie.
-    if (winnerCheck.check(selectedBox.id, whosTurn)) {
+    if (winnerCheck.check(selectedBox.id, whosTurn, winCondition)) {
         wonGame()
         disableGameBoard()
     }
@@ -152,7 +153,7 @@ document.getElementById('game-reset').addEventListener('click',gameReset)
 const winConditionField = document.querySelector('#win-condition')
 const rowField = document.querySelector('#rows')
 const columnField = document.querySelector('#columns')
-winConditionField.value = winnerCheck.winCondition
+winConditionField.value = winCondition
 rowField.value = rows
 columnField.value = columns
 
