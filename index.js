@@ -1,5 +1,6 @@
 // import ai from './ai.js';
 import moveByAI from './ai.js';
+import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
 let turnCounter = 0; //To know
@@ -9,9 +10,9 @@ let YsWinCount = 0
 let rows = 5 
 let columns = 5
 let winCondition = 3
-const winnerCheck = new WinnerCheck()
+const table = document.querySelector('table')
+const winnerCheck = new WinnerCheck(table)
 let playAI = 'O';
-
 //function check if tie game.                 
 const ifTiedGame = () => {
     if (turnCounter === (document.querySelectorAll('.Tic-Tac-Toe-Boxs').length)) {
@@ -60,7 +61,13 @@ const gameReset = () => {
     // window.location.reload()
 } 
 const placeMove = (id) => {
-    const selectedBox = document.getElementById(id)
+    console.log('hhhhi')
+    const [row, column] = getCoordinates(id)
+    console.log(row)
+    console.log(column)
+    // const hi = `#Row\\:${4}-Column\\:${4}`
+    // const selectedBox = document.querySelector(hi)
+    const selectedBox = document.querySelector(`#Row\\:${row}-Column\\:${column}`)
     // placeMove(selectedBox)
     selectedBox.innerText = whosTurn    //Mark the box with X or O
     selectedBox.disabled = true         //Disable the box just clicked on, so it can't be used.
@@ -86,7 +93,7 @@ const boxClicked = (e) => {
     // isgameFinished()
 }
 const updateMessageBoard = (mgs) => {
-    const messageBoard = document.getElementById('Message-Board')
+    const messageBoard = document.querySelector('#Message-Board')
     //update display to whos turn it is next
     if (mgs === 'whosTurn') 
         messageBoard.innerText = `It's ${whosTurn} players turn`
@@ -148,7 +155,7 @@ if (playAI === 'X')
     placeMove(moveByAI(rows, columns))
 
 //addEventListener to the reset game button
-document.getElementById('game-reset').addEventListener('click',gameReset)
+document.querySelector('#game-reset').addEventListener('click',gameReset)
 //add value to win condition field, and eventListener
 const winConditionField = document.querySelector('#win-condition')
 const rowField = document.querySelector('#rows')
