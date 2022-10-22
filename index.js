@@ -1,5 +1,5 @@
 // import ai from './ai.js';
-import moveByAI from './ai.js';
+import {moveRandom} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
@@ -145,14 +145,14 @@ const toggleTurn = () => {
     console.log(playAI, whosTurn)
     if (playAI === whosTurn) {
         console.log('h')
-        placeMove(moveByAI(rows, columns))
+        placeMove(moveRandom(rows, columns))
     }
 }
 
 //create the game board
 createGameBoard()
 if (playAI === 'X')
-    placeMove(moveByAI(rows, columns))
+    placeMove(moveRandom(rows, columns))
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click',gameReset)

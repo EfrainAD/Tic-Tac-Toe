@@ -1,25 +1,26 @@
 // import getCoordinates from './getCoordinates.js'
 import {WinnerCheck} from './WinnerCheck.js'
-export default (rows, columns) => {
-     let move = null
-     
+
+const setUpGameBoard = () => {
      const table = document.querySelector('table')
      const vTable = document.createElement('table')
      vTable.innerHTML = table.innerHTML;
-     const winnerCheck = new WinnerCheck(vTable)
-     // winnerCheck buttonsCoordinate, whosTurn, winCondition
+     return vTable
+}
+const getRandomCoordinates = (rowsRange, columnsRange) => {
+     const row = Math.floor(Math.random() * rowsRange + 1)
+     const column = Math.floor(Math.random() * columnsRange + 1)
+     return [row, column]
+} 
+// winnerCheck buttonsCoordinate, whosTurn, winCondition
+// const winnerCheck = new WinnerCheck(vTable)
+export const moveRandom = (rows, columns) => {
+     const vTable = setUpGameBoard()
 
-     // console.log(document.querySelector('.'))
-     while (!move) {
-          const row = Math.floor(Math.random() * rows + 1)
-          const column = Math.floor(Math.random() * columns + 1)
-          const buttonId = `Row:${row}-Column:${column}`
-          if (document.querySelector(`#Row\\:${row}-Column\\:${column}`).innerText === ''){
-               // console.log('thischeck is', winnerCheck.check(buttonId, 'X', 2))
-               // if (winnerCheck.check(buttonId, 'O', 2)) {
-               //      table.innerHTML = ('<h1>winner</h1>')
-               // }
-               return buttonId
+     while (true) {
+          const [row , column] = getRandomCoordinates(rows, columns)
+          if (vTable.querySelector(`#Row\\:${row}-Column\\:${column}`).innerText === '') {
+               return `Row:${row}-Column:${column}`
           }
      }
 }
