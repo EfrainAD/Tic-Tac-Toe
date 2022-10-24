@@ -1,5 +1,5 @@
 // import ai from './ai.js';
-import {moveRandom} from './ai.js';
+import {moveRandom, playByAi} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
@@ -61,10 +61,7 @@ const gameReset = () => {
     // window.location.reload()
 } 
 const placeMove = (id) => {
-    console.log('hhhhi')
     const [row, column] = getCoordinates(id)
-    console.log(row)
-    console.log(column)
     // const hi = `#Row\\:${4}-Column\\:${4}`
     // const selectedBox = document.querySelector(hi)
     const selectedBox = document.querySelector(`#Row\\:${row}-Column\\:${column}`)
@@ -144,15 +141,14 @@ const toggleTurn = () => {
     updateMessageBoard('whosTurn')
     console.log(playAI, whosTurn)
     if (playAI === whosTurn) {
-        console.log('h')
-        placeMove(moveRandom(rows, columns))
+        placeMove(playByAi(rows, columns))
     }
 }
 
 //create the game board
 createGameBoard()
 if (playAI === 'X')
-    placeMove(moveRandom(rows, columns))
+    placeMove(playByAi(rows, columns))
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click',gameReset)
@@ -163,5 +159,3 @@ const columnField = document.querySelector('#columns')
 winConditionField.value = winCondition
 rowField.value = rows
 columnField.value = columns
-
-function p (str) {(console.log(str))}
