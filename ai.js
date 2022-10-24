@@ -27,20 +27,26 @@ export const moveRandom = (rows, columns) => {
      }
 }
 const oneMoveWin = (vTable, rows, columns) => {
-     let row = 0
-     let column = 0
      for (let row = 1; row <= rows; row++) {
           for (let column = 1; column <= columns; column++) {
                const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
-               // console.log(aMove)
-               // console.log(vTable)
                if (aMove.innerHTML === ''){
                     if (winnerCheck.check(aMove.id, 'O', 3))
                          return aMove.id
                }
           }
      }
-     return moveRandom(rows, columns)
+}
+const oppOneMoveWin = (vTable, rows, columns) => {
+     for (let row = 1; row <= rows; row++) {
+          for (let column = 1; column <= columns; column++) {
+               const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
+               if (aMove.innerHTML === ''){
+                    if (winnerCheck.check(aMove.id, 'X', 3))
+                         return aMove.id
+               }
+          }
+     }
 }
 export const playByAi = (rows, columns) => {
      const vTable = setUpGameBoard()
@@ -49,4 +55,9 @@ export const playByAi = (rows, columns) => {
      if (move) {
           return move
      }
+     move = oppOneMoveWin(vTable, rows, columns)
+     if (move) {
+          return move
+     }
+     else return moveRandom(rows, columns)
 }
