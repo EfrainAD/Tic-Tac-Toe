@@ -140,14 +140,14 @@ const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
     if (playAI === whosTurn) {
-        placeMove(playByAi(rows, columns))
+        placeMove(playByAi(whosTurn, rows, columns))
     }
 }
 
 //create the game board
 createGameBoard()
 if (playAI === 'X')
-    placeMove(playByAi(rows, columns))
+    placeMove(playByAi(whosTurn, rows, columns))
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click',gameReset)

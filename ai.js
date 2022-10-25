@@ -33,7 +33,7 @@ export const moveRandom = (rows, columns) => {
           }
      }
 }
-const oneMoveWin = (vTable, rows, columns) => {
+const oneMoveWin = (vTable, whosTurn, rows, columns) => {
      console.log('One Move')
      // vTable.querySelectorAll('button').forEach(button => {
      //      console.log(button.innerHTML)
@@ -44,7 +44,7 @@ const oneMoveWin = (vTable, rows, columns) => {
                // console.log('we checking out a move!', aMove)
                if (aMove.innerHTML === ''){
                     // console.log('it empty!')
-                    if (winnerCheck.check(aMove.id, 'O', 3)) {
+                    if (winnerCheck.check(aMove.id, whosTurn, 3)) {
                          console.log("It's a winning move!")
                          console.log(`listOfWinningMoves: ${listOfWinningMoves} amove.id: ${aMove.id}`)
                          // console.log('what this if say?',listOfWinningMoves.includes(move => move == aMove.id))
@@ -60,18 +60,24 @@ const oneMoveWin = (vTable, rows, columns) => {
      }
      return null
 }
-const oppOneMoveWin = (vTable, rows, columns) => {
+const oppOneMoveWin = (vTable, whosTurn, rows, columns) => {
+     let oppTurn = null
+     if (whosTurn === 'O') {
+          oppTurn = 'X'
+     } else {
+          oppTurn = 'O'
+     }
      for (let row = 1; row <= rows; row++) {
           for (let column = 1; column <= columns; column++) {
                const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
                if (aMove.innerHTML === ''){
-                    if (winnerCheck.check(aMove.id, 'X', 3))
+                    if (winnerCheck.check(aMove.id, oppTurn, 3))
                          return aMove.id
                }
           }
      }
 }
-const TwoMovesWin = (vTable, rows, columns) => {
+const TwoMovesWin = (vTable, whosTurn, rows, columns) => {
      // vTable.querySelectorAll('button').forEach(button => {
      //      console.log(button.innerHTML)
      // });
@@ -82,13 +88,13 @@ const TwoMovesWin = (vTable, rows, columns) => {
                console.log('We looking to play this Vmove', aMove)
                
                if (aMove.innerHTML === ''){
-                   aMove.innerHTML = 'O'
+                   aMove.innerHTML = whosTurn
                    
                     //     console.log('check table', vTable.querySelector(`#Row\\:${row}-Column\\:${column}`).innerHTML) 
                     //     console.log('we played it!')
 
                    while (true) {
-                        let returnedMove = oneMoveWin(vTable, rows, columns)
+                        let returnedMove = oneMoveWin(vTable, whosTurn, rows, columns)
                         
                     //     console.log('Can we get a winning move? \n Whats return move say?')
                         console.log(returnedMove)
@@ -159,22 +165,22 @@ const cleanUp = () => {
           winnerRating: 0
      }
 }
-export const playByAi = (rows, columns) => {
+export const playByAi = (whosTurn, rows, columns) => {
      cleanUp()
      const vTable = setUpGameBoard()
      let move = null
-     move = oneMoveWin(vTable, rows, columns)
+     move = oneMoveWin(vTable, whosTurn, rows, columns)
      console.log(("--------------------------".repeat(5)))
      console.log(`oneMoveWin returned ${move}`)
      if (move) {
           return move
      }
-     move = oppOneMoveWin(vTable, rows, columns)
+     move = oppOneMoveWin(vTable, whosTurn, rows, columns)
      console.log(`oppOneMoveWin returned ${move}`)
      if (move) {
           return move
      }
-     move = TwoMovesWin(vTable, rows, columns)
+     move = TwoMovesWin(vTable, whosTurn, rows, columns)
      console.log(`TwoMovesWin returned ${move}`)
      if (move) {
           return move
