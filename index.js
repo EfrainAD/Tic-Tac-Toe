@@ -139,7 +139,6 @@ const toggleWhosTurn = () => {
 const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
-    console.log(playAI, whosTurn)
     if (playAI === whosTurn) {
         placeMove(playByAi(rows, columns))
     }
