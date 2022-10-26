@@ -12,6 +12,7 @@ let columns = 5
 let winCondition = 3
 const table = document.querySelector('table')
 const winnerCheck = new WinnerCheck(table)
+let playerOne = 'X'
 let playAI = 'O';
 //function check if tie game.                 
 const ifTiedGame = () => {
@@ -140,14 +141,14 @@ const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
     if (playAI === whosTurn) {
-        placeMove(playByAi(whosTurn, rows, columns))
+        placeMove(playByAi(playAI, playerOne, winCondition, rows, columns))
     }
 }
 
 //create the game board
 createGameBoard()
 if (playAI === 'X')
-    placeMove(playByAi(whosTurn, rows, columns))
+    placeMove(playByAi(playAI, playerOne, winCondition, rows, columns))
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click',gameReset)

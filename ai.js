@@ -60,13 +60,7 @@ const oneMoveWin = (vTable, whosTurn, rows, columns) => {
      }
      return null
 }
-const oppOneMoveWin = (vTable, whosTurn, rows, columns) => {
-     let oppTurn = null
-     if (whosTurn === 'O') {
-          oppTurn = 'X'
-     } else {
-          oppTurn = 'O'
-     }
+const oppOneMoveWin = (vTable, oppTurn, rows, columns) => {
      for (let row = 1; row <= rows; row++) {
           for (let column = 1; column <= columns; column++) {
                const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
@@ -165,28 +159,28 @@ const cleanUp = () => {
           winnerRating: 0
      }
 }
-export const playByAi = (whosTurn, rows, columns) => {
+export const playByAi = (aiTurn, oppTurn, winCondition, rows, columns) => {
      cleanUp()
      const vTable = setUpGameBoard()
      let move = null
-     move = oneMoveWin(vTable, whosTurn, rows, columns)
+     move = oneMoveWin(vTable, aiTurn, rows, columns)
      console.log(("--------------------------".repeat(5)))
      console.log(`oneMoveWin returned ${move}`)
      if (move) {
           return move
      }
-     move = oppOneMoveWin(vTable, whosTurn, rows, columns)
+     move = oppOneMoveWin(vTable, oppTurn, rows, columns)
      console.log(`oppOneMoveWin returned ${move}`)
      if (move) {
           return move
      }
-     move = TwoMovesWin(vTable, whosTurn, rows, columns)
+     move = TwoMovesWin(vTable, aiTurn, rows, columns)
      console.log(`TwoMovesWin returned ${move}`)
      if (move) {
           return move
      }
      cleanUp()
-     move = TwoMovesWin(vTable, 'O', rows, columns)
+     move = TwoMovesWin(vTable, oppTurn, rows, columns)
      console.log(`oppTwoMovesWin returned ${move}`)
      console.log('Found nothing, going random')
      return moveRandom(rows, columns)
