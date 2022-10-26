@@ -185,6 +185,9 @@ export const playByAi = (whosTurn, rows, columns) => {
      if (move) {
           return move
      }
+     cleanUp()
+     move = TwoMovesWin(vTable, 'O', rows, columns)
+     console.log(`oppTwoMovesWin returned ${move}`)
      console.log('Found nothing, going random')
      return moveRandom(rows, columns)
 }
