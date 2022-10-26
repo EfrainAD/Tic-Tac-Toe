@@ -1,23 +1,22 @@
-// import ai from './ai.js';
-import {moveRandom, playByAi} from './ai.js';
+import {playByAi} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
 let turnCounter = 0; //To know when game is tied.
-let XsWinCount = 0 // Tracks the number of times Player won the game.
-let YsWinCount = 0
+let playerOnesWinCount = 0 // Tracks the number of times Player won the game.
+let playerTwosWinCount = 0
 // Controls how many rows and columns the game board has
 let rows = 5 
 let columns = 5
 let winCondition = 3
-const table = document.querySelector('table')
-const winnerCheck = new WinnerCheck(table)
+const gameBoard = document.querySelector('table')
+const winnerCheck = new WinnerCheck(gameBoard)
 let playerOne = 'X'
 let playerTwo = 'O'
-let playAI = playerTwo
+let playerAI = playerTwo
 let whosTurn = playerOne 
 
 //function check if tie game.                 
-const ifTiedGame = () => {
+const isTiedGame = () => {
     if (turnCounter === (document.querySelectorAll('.Tic-Tac-Toe-Boxs').length)) {
         return true
     }
@@ -26,28 +25,33 @@ const ifTiedGame = () => {
 const tiedGame = () => {
     updateMessageBoard('tied')
 }
-//This is here becuase there are more then one play a player can win. 
+//This is here becuase there are three ways a the game ends, win, lose, tie. 
 const wonGame = () => {
     updateMessageBoard('winner')
     updatePlayersWinCount()
     updateScoreBoard()
 }
+const setupTheScoreBoard = () => {
+        document.querySelector('#player-one-win-count').innerText = `${playerOne} Won ${playerOnesWinCount} times`
+    
+        document.querySelector('#player-two-win-count').innerText = `${playerTwo} Won ${playerTwosWinCount} times`
+}
 const updateScoreBoard = () => {
-    if (whosTurn === 'X') {
-        document.querySelector('#x-win-count').innerText = `X Won ${XsWinCount} times`
+    if (whosTurn === playerOne) {
+        document.querySelector('#player-one-win-count').innerText = `${playerOne} Won ${playerOnesWinCount} times`
     } else {
-        document.querySelector('#y-win-count').innerText = `Y Won ${YsWinCount} times`
+        document.querySelector('#player-two-win-count').innerText = `${playerTwo} Won ${playerTwosWinCount} times`
     }
 }
 const updatePlayersWinCount = () => {
-    if (whosTurn === 'X')
-        XsWinCount++
+    if (whosTurn === playerOne)
+        playerOnesWinCount++
     else
-        YsWinCount++
+        playerTwosWinCount++
 }
 //Reset the whole game over
 const gameReset = () => {
-    whosTurn = 'X'
+    whosTurn = playerOne
     turnCounter = 0
     updateMessageBoard('whosTurn')
     // change varibles based the the field inputs
@@ -61,7 +65,6 @@ const gameReset = () => {
         winCondition = winConditionField.value
     // Remove the gameboard and remake it.
     createGameBoard()
-    // window.location.reload()
 } 
 const placeMove = (id) => {
     const [row, column] = getCoordinates(id)
@@ -76,21 +79,16 @@ const placeMove = (id) => {
         wonGame()
         disableGameBoard()
     }
-    else if (ifTiedGame()) {
+    else if (isTiedGame()) {
         tiedGame()
         disableGameBoard()
     } else {
         toggleTurn()
     }
 }
-//if there is a winner or the game tied. 
-// const  isgameFinished = () => {
-
-// }}
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
     placeMove(e.target.id)
-    // isgameFinished()
 }
 const updateMessageBoard = (mgs) => {
     const messageBoard = document.querySelector('#Message-Board')
@@ -103,20 +101,16 @@ const updateMessageBoard = (mgs) => {
         messageBoard.innerText = 'This game is a tie!'
     else 
         messageBoard.innerText = mgs
-
-
 }
 const createGameBoard = () => {
-    // const table = document.querySelector('table')
     // Remove the old board if there is one.
-    if (table.firstChild) {
-        table.removeChild(table.firstChild)
+    if (gameBoard.firstChild) {
+        gameBoard.removeChild(gameBoard.firstChild)
     }
     //Every spot on the board will have a id name `Row:${row}-Column:${column}`
     //Then we add an eventEventListener to each spot.
-    // table.style.backgroundColor = 'green'
     for (let row = 1; row <= rows; row++) {
-        const tr = table.insertRow()
+        const tr = gameBoard.insertRow()
         for (let column = 1; column <= columns; column++) {
             const td = tr.insertCell()
             const button = document.createElement('button')
@@ -134,23 +128,24 @@ const disableGameBoard = () => {
         buttons[i].disabled = true
 }
 const toggleWhosTurn = () => {
-    if (whosTurn === 'X') 
-            whosTurn = 'O'
+    if (whosTurn === playerOne) 
+            whosTurn = playerTwo
     else
-        whosTurn = 'X'
+        whosTurn = playerOne
 }
 const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
-    if (playAI === whosTurn) {
-        placeMove(playByAi(playAI, playerOne, winCondition, rows, columns))
+    if (playerAI === whosTurn) {
+        placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
     }
 }
 
-//create the game board
+//Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
-if (playAI === 'X')
-    placeMove(playByAi(playAI, playerOne, winCondition, rows, columns))
+setupTheScoreBoard()
+if (playerAI === 'X')
+    placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click',gameReset)
