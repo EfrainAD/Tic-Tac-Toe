@@ -2,6 +2,7 @@
 import {WinnerCheck} from './WinnerCheck.js'
 const vTable = document.createElement('table')
 const winnerCheck = new WinnerCheck(vTable)
+let winCondition = null
 let listOfWinningMoves = []
 let theWinningMove = {
      move: '',
@@ -44,7 +45,7 @@ const oneMoveWin = (vTable, whosTurn, rows, columns) => {
                // console.log('we checking out a move!', aMove)
                if (aMove.innerHTML === ''){
                     // console.log('it empty!')
-                    if (winnerCheck.check(aMove.id, whosTurn, 3)) {
+                    if (winnerCheck.check(aMove.id, whosTurn, winCondition)) {
                          console.log("It's a winning move!")
                          console.log(`listOfWinningMoves: ${listOfWinningMoves} amove.id: ${aMove.id}`)
                          // console.log('what this if say?',listOfWinningMoves.includes(move => move == aMove.id))
@@ -65,7 +66,7 @@ const oppOneMoveWin = (vTable, oppTurn, rows, columns) => {
           for (let column = 1; column <= columns; column++) {
                const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
                if (aMove.innerHTML === ''){
-                    if (winnerCheck.check(aMove.id, oppTurn, 3))
+                    if (winnerCheck.check(aMove.id, oppTurn, winCondition))
                          return aMove.id
                }
           }
@@ -159,8 +160,9 @@ const cleanUp = () => {
           winnerRating: 0
      }
 }
-export const playByAi = (aiTurn, oppTurn, winCondition, rows, columns) => {
+export const playByAi = (aiTurn, oppTurn, winConditionPassed, rows, columns) => {
      cleanUp()
+     winCondition = winConditionPassed
      const vTable = setUpGameBoard()
      let move = null
      move = oneMoveWin(vTable, aiTurn, rows, columns)

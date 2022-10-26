@@ -2,18 +2,20 @@
 import {moveRandom, playByAi} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
-let whosTurn = 'X' //X player starts the game //Be toggled from X and Y
-let turnCounter = 0; //To know
+let turnCounter = 0; //To know when game is tied.
 let XsWinCount = 0 // Tracks the number of times Player won the game.
 let YsWinCount = 0
-// Controls how many rows and columns the game has
+// Controls how many rows and columns the game board has
 let rows = 5 
 let columns = 5
 let winCondition = 3
 const table = document.querySelector('table')
 const winnerCheck = new WinnerCheck(table)
 let playerOne = 'X'
-let playAI = 'O';
+let playerTwo = 'O'
+let playAI = playerTwo
+let whosTurn = playerOne 
+
 //function check if tie game.                 
 const ifTiedGame = () => {
     if (turnCounter === (document.querySelectorAll('.Tic-Tac-Toe-Boxs').length)) {
@@ -105,7 +107,7 @@ const updateMessageBoard = (mgs) => {
 
 }
 const createGameBoard = () => {
-    const table = document.querySelector('table')
+    // const table = document.querySelector('table')
     // Remove the old board if there is one.
     if (table.firstChild) {
         table.removeChild(table.firstChild)
