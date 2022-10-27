@@ -1,19 +1,21 @@
 import {playByAi} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
-let turnCounter = 0; //To know when game is tied.
+let turnCounter = 0 //To know when game is tied.
 let playerOnesWinCount = 0 // Tracks the number of times Player won the game.
 let playerTwosWinCount = 0
+let playerTiedCount = 0
 // Controls how many rows and columns the game board has
 let rows = 5 
 let columns = 5
-let winCondition = 3
+let winCondition = 4
 const gameBoard = document.querySelector('table')
 const winnerCheck = new WinnerCheck(gameBoard)
 let playerOne = 'X'
 let playerTwo = 'O'
-let playerAI = playerTwo
+let playerAI = playerOne
 let whosTurn = playerOne 
+const aiVsAi = true
 
 //function check if tie game.                 
 const isTiedGame = () => {
@@ -24,17 +26,25 @@ const isTiedGame = () => {
 }
 const tiedGame = () => {
     updateMessageBoard('tied')
+    playerTiedCount++
+    updateScoreBoard()
+    if (aiVsAi)
+        gameReset()
 }
 //This is here becuase there are three ways a the game ends, win, lose, tie. 
 const wonGame = () => {
     updateMessageBoard('winner')
     updatePlayersWinCount()
     updateScoreBoard()
+    if (aiVsAi && playerOnesWinCount < 300)
+     gameReset()
 }
 const setupTheScoreBoard = () => {
         document.querySelector('#player-one-win-count').innerText = `${playerOne} Won ${playerOnesWinCount} times`
     
         document.querySelector('#player-two-win-count').innerText = `${playerTwo} Won ${playerTwosWinCount} times`
+
+        document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updateScoreBoard = () => {
     if (whosTurn === playerOne) {
@@ -42,6 +52,7 @@ const updateScoreBoard = () => {
     } else {
         document.querySelector('#player-two-win-count').innerText = `${playerTwo} Won ${playerTwosWinCount} times`
     }
+    document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updatePlayersWinCount = () => {
     if (whosTurn === playerOne)
@@ -65,6 +76,9 @@ const gameReset = () => {
         winCondition = winConditionField.value
     // Remove the gameboard and remake it.
     createGameBoard()
+    if(whosTurn === playerAI)
+        aiToMove()
+
 } 
 const placeMove = (id) => {
     const [row, column] = getCoordinates(id)
@@ -89,6 +103,9 @@ const placeMove = (id) => {
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
     placeMove(e.target.id)
+}
+const aiToMove =  () => {
+    placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
 }
 const updateMessageBoard = (mgs) => {
     const messageBoard = document.querySelector('#Message-Board')
@@ -136,16 +153,11 @@ const toggleWhosTurn = () => {
 const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
-    if (playerAI === whosTurn) {
+    if (true) {
+    // if (playerAI === whosTurn) {
         placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
     }
 }
-
-//Game starts Here. If AI is first player, The AI needs move before user does anything.
-createGameBoard()
-setupTheScoreBoard()
-if (playerAI === 'X')
-    placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click',gameReset)
@@ -156,3 +168,9 @@ const columnField = document.querySelector('#columns')
 winConditionField.value = winCondition
 rowField.value = rows
 columnField.value = columns
+
+//Game starts Here. If AI is first player, The AI needs move before user does anything.
+createGameBoard()
+setupTheScoreBoard()
+if (playerAI === 'X')
+    aiToMove()
