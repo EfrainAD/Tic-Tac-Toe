@@ -1,4 +1,3 @@
-// import getCoordinates from './getCoordinates.js'
 import {WinnerCheck} from './WinnerCheck.js'
 const vTable = document.createElement('table')
 const winnerCheck = new WinnerCheck(vTable)
@@ -13,7 +12,6 @@ let theWinningMove = {
 
 const setUpGameBoard = () => {
      const table = document.querySelector('table')
-     // const vTable = document.createElement('table')
      vTable.innerHTML = table.innerHTML;
      return vTable
 }
@@ -22,8 +20,6 @@ const getRandomCoordinates = (rowsRange, columnsRange) => {
      const column = Math.floor(Math.random() * columnsRange + 1)
      return [row, column]
 } 
-// winnerCheck buttonsCoordinate, whosTurn, winCondition
-// const winnerCheck = new WinnerCheck(vTable)
 export const moveRandom = (rows, columns) => {
      const vTable = setUpGameBoard()
 
@@ -35,7 +31,7 @@ export const moveRandom = (rows, columns) => {
      }
 }
 const oneMoveWin = (vTable, whosTurn, rows, columns) => {
-     console.log('One Move')
+     // console.log('One Move')
      // vTable.querySelectorAll('button').forEach(button => {
      //      console.log(button.innerHTML)
      // });
@@ -46,8 +42,8 @@ const oneMoveWin = (vTable, whosTurn, rows, columns) => {
                if (aMove.innerHTML === ''){
                     // console.log('it empty!')
                     if (winnerCheck.check(aMove.id, whosTurn, winCondition)) {
-                         console.log("It's a winning move!")
-                         console.log(`listOfWinningMoves: ${listOfWinningMoves} amove.id: ${aMove.id}`)
+                         // console.log("It's a winning move!")
+                         // console.log(`listOfWinningMoves: ${listOfWinningMoves} amove.id: ${aMove.id}`)
                          // console.log('what this if say?',listOfWinningMoves.includes(move => move == aMove.id))
                          // console.log('oneMoveWin')
 
@@ -61,61 +57,24 @@ const oneMoveWin = (vTable, whosTurn, rows, columns) => {
      }
      return null
 }
-const oppOneMoveWin = (vTable, oppTurn, rows, columns) => {
-     for (let row = 1; row <= rows; row++) {
-          for (let column = 1; column <= columns; column++) {
-               const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
-               if (aMove.innerHTML === ''){
-                    if (winnerCheck.check(aMove.id, oppTurn, winCondition))
-                         return aMove.id
-               }
-          }
-     }
-}
 const TwoMovesWin = (vTable, whosTurn, rows, columns) => {
-     // vTable.querySelectorAll('button').forEach(button => {
-     //      console.log(button.innerHTML)
-     // });
      for (let row = 1; row <= rows; row++) {
           for (let column = 1; column <= columns; column++) {
                const aMove = vTable.querySelector(`#Row\\:${row}-Column\\:${column}`)
-               
-               console.log('We looking to play this Vmove', aMove)
                
                if (aMove.innerHTML === ''){
                    aMove.innerHTML = whosTurn
-                   
-                    //     console.log('check table', vTable.querySelector(`#Row\\:${row}-Column\\:${column}`).innerHTML) 
-                    //     console.log('we played it!')
 
                    while (true) {
                         let returnedMove = oneMoveWin(vTable, whosTurn, rows, columns)
-                        
-                    //     console.log('Can we get a winning move? \n Whats return move say?')
-                        console.log(returnedMove)
-                        
                         if (returnedMove) {
-                         console.log('win move', returnedMove) 
-                         // console.log('is this the only one?')
-                         console.log(listOfWinningMoves.forEach( move => {
-                              console.log(`${move} == ${returnedMove}`)
-                               }))
                              if (!listOfWinningMoves.includes(returnedMove))
                                {
                                    listOfWinningMoves.push(returnedMove)
-                                  
-                                   console.log('added?', listOfWinningMoves)
-                                   // console.log('theWinningMove:', theWinningMove)
-                                   // console.log('theWinningMove.rating:', theWinningMove.rating)
-                                   // console.log('theList.length:', listOfWinningMoves.length)
                                    
                                    if (theWinningMove.rating < listOfWinningMoves.length){
-                                        console.log('updating theWinningMove')
-
                                         theWinningMove.move = aMove.id
                                         theWinningMove.rating = listOfWinningMoves.length
-                                        
-                                        console.log('update = ', theWinningMove)
                                   }
                              }
                         } else {
@@ -125,9 +84,6 @@ const TwoMovesWin = (vTable, whosTurn, rows, columns) => {
                    }
                    aMove.innerHTML = ''
                }
-               // listOfWinningMoves = []
-
-               console.log('BEFORE cleaning at the end of vmove theWinningMove ojb is', theWinningMove)
 
                if (theWinningMove.rating > 1) {
                     if (theWinningMove.rating > theWinningMove.winnerRating) {
@@ -144,7 +100,8 @@ const TwoMovesWin = (vTable, whosTurn, rows, columns) => {
                         winnerRating: theWinningMove.winnerRating
                    }
               }
-               console.log('at the end of vmove theWinningMove ojb is', theWinningMove)
+              if (theWinningMove.winnerRating > 3)
+                    console.log('at the end of vmove theWinningMove ojb is', theWinningMove)
           }
           
      }
@@ -161,29 +118,26 @@ const cleanUp = () => {
      }
 }
 export const playByAi = (aiTurn, oppTurn, winConditionPassed, rows, columns) => {
+     // console.log(("--------------------------".repeat(5)))
      cleanUp()
      winCondition = winConditionPassed
      const vTable = setUpGameBoard()
      let move = null
+
      move = oneMoveWin(vTable, aiTurn, rows, columns)
-     console.log(("--------------------------".repeat(5)))
-     console.log(`oneMoveWin returned ${move}`)
+     // console.log(`oneMoveWin returned ${move}`)
      if (move) {
           return move
      }
-     move = oppOneMoveWin(vTable, oppTurn, rows, columns)
-     console.log(`oppOneMoveWin returned ${move}`)
+     move = oneMoveWin(vTable, oppTurn, rows, columns)
+     // console.log(`oppOneMoveWin returned ${move}`)
      if (move) {
           return move
      }
      move = TwoMovesWin(vTable, aiTurn, rows, columns)
-     console.log(`TwoMovesWin returned ${move}`)
      if (move) {
           return move
      }
-     cleanUp()
-     move = TwoMovesWin(vTable, oppTurn, rows, columns)
-     console.log(`oppTwoMovesWin returned ${move}`)
-     console.log('Found nothing, going random')
+     
      return moveRandom(rows, columns)
 }
