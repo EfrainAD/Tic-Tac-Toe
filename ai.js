@@ -130,12 +130,18 @@ export const playByAi = (aiTurn, oppTurn, winConditionPassed, rows, columns) => 
           return move
      }
      move = oneMoveWin(vTable, oppTurn, rows, columns)
-     // console.log(`oppOneMoveWin returned ${move}`)
+     console.log(`oppOneMoveWin returned ${move}`)
      if (move) {
           return move
      }
      move = TwoMovesWin(vTable, aiTurn, rows, columns)
      if (move) {
+          return move
+     }
+     cleanUp()
+     move = TwoMovesWin(vTable, oppTurn, rows, columns)
+     if (move) {
+          console.log('call')
           return move
      }
      

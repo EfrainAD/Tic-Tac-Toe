@@ -6,16 +6,15 @@ let playerOnesWinCount = 0 // Tracks the number of times Player won the game.
 let playerTwosWinCount = 0
 let playerTiedCount = 0
 // Controls how many rows and columns the game board has
-let rows = 5 
+let rows = 5
 let columns = 5
-let winCondition = 4
+let winCondition = 3
 const gameBoard = document.querySelector('table')
 const winnerCheck = new WinnerCheck(gameBoard)
 let playerOne = 'X'
 let playerTwo = 'O'
 let playerAI = playerOne
 let whosTurn = playerOne 
-const aiVsAi = true
 
 //function check if tie game.                 
 const isTiedGame = () => {
@@ -28,16 +27,12 @@ const tiedGame = () => {
     updateMessageBoard('tied')
     playerTiedCount++
     updateScoreBoard()
-    if (aiVsAi)
-        gameReset()
 }
 //This is here becuase there are three ways a the game ends, win, lose, tie. 
 const wonGame = () => {
     updateMessageBoard('winner')
     updatePlayersWinCount()
     updateScoreBoard()
-    if (aiVsAi && playerOnesWinCount < 300)
-     gameReset()
 }
 const setupTheScoreBoard = () => {
         document.querySelector('#player-one-win-count').innerText = `${playerOne} Won ${playerOnesWinCount} times`
@@ -153,8 +148,7 @@ const toggleWhosTurn = () => {
 const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
-    if (true) {
-    // if (playerAI === whosTurn) {
+    if (playerAI === whosTurn) {
         placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
     }
 }
