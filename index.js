@@ -136,10 +136,7 @@ const updateMessageBoard = (mgs) => {
 }
 const createGameBoard = () => {
     // Remove the old board if there is one.
-    const gameContainer = document.querySelector('.game-container')
-    if (gameContainer.firstChild) {
-        gameContainer.removeChild(gameContainer.firstChild)
-    }
+    gameBoard.innerHTML = ''
     //Every spot on the board will have a id name `Row:${row}-Column:${column}`
     //Then we add an eventEventListener to each spot.
     for (let row = 1; row <= rows; row++) {
