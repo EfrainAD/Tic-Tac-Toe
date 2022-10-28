@@ -171,5 +171,5 @@ columnField.value = columns
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
 setupTheScoreBoard()
-if (playerAI === 'X')
+if (playerAI === playerOnesSymble)
     aiToMove()
