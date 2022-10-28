@@ -45,6 +45,10 @@ const wonGame = () => {
     updatePlayersWinCount()
     updateScoreBoard()
 }
+const setupTheMessageBoard = () => {
+    const messageBoard = document.querySelector('#Message-Board')
+    messageBoard.innerHTML = `It's ${playerOnesSymble} player's turn`
+}
 const setupTheScoreBoard = () => {
         document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
     
@@ -174,6 +178,7 @@ document.querySelector('#game-reset').addEventListener('click', gameReset)
 
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
+setupTheMessageBoard()
 setupTheScoreBoard()
 setupTheGameControls()
 if (playerAI === playerOnesSymble)
