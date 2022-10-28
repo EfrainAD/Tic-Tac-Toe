@@ -13,10 +13,15 @@ const gameBoard = document.querySelector('table')
 const winnerCheck = new WinnerCheck(gameBoard)
 let playerOne = 'X'
 let playerTwo = 'O'
-let playerAI = playerOne
+let playerAI = playerTwo
 let whosTurn = playerOne 
 
-//function check if tie game.                 
+const getOpponentPlaySimble = (playersSymble) => {
+    if (playersSymble === playerOne)
+        return playerTwo
+    else
+        return playerOne
+}            
 const isTiedGame = () => {
     if (turnCounter === (document.querySelectorAll('.Tic-Tac-Toe-Boxs').length)) {
         return true
@@ -100,7 +105,7 @@ const boxClicked = (e) => {
     placeMove(e.target.id)
 }
 const aiToMove =  () => {
-    placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
+    placeMove(playByAi(whosTurn, getOpponentPlaySimble(whosTurn), winCondition, rows, columns))
 }
 const updateMessageBoard = (mgs) => {
     const messageBoard = document.querySelector('#Message-Board')
@@ -149,7 +154,7 @@ const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
     if (playerAI === whosTurn) {
-        placeMove(playByAi(playerAI, playerOne, winCondition, rows, columns))
+        placeMove(playByAi(whosTurn, getOpponentPlaySimble(whosTurn), winCondition, rows, columns))
     }
 }
 

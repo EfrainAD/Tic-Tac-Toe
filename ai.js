@@ -41,9 +41,10 @@ const oneMoveWin = (vTable, whosTurn, rows, columns) => {
                // console.log('we checking out a move!', aMove)
                if (aMove.innerHTML === ''){
                     // console.log('it empty!')
+                    // console.log(`if (winnerCheck.check(${aMove.id}, ${whosTurn}, ${winCondition}))`)
                     if (winnerCheck.check(aMove.id, whosTurn, winCondition)) {
                          // console.log("It's a winning move!")
-                         // console.log(`listOfWinningMoves: ${listOfWinningMoves} amove.id: ${aMove.id}`)
+                         // console.log(`listOfWinningMoves: ${listOfWinningMoves} move.id being looked at is: ${aMove.id}`)
                          // console.log('what this if say?',listOfWinningMoves.includes(move => move == aMove.id))
                          // console.log('oneMoveWin')
 
@@ -118,7 +119,9 @@ const cleanUp = () => {
      }
 }
 export const playByAi = (aiTurn, oppTurn, winConditionPassed, rows, columns) => {
-     // console.log(("--------------------------".repeat(5)))
+     console.log(("--------------------------".repeat(5)))
+     console.log(aiTurn, oppTurn)
+     console.log(("--------------------------".repeat(5)))
      cleanUp()
      winCondition = winConditionPassed
      const vTable = setUpGameBoard()
@@ -136,14 +139,15 @@ export const playByAi = (aiTurn, oppTurn, winConditionPassed, rows, columns) => 
      }
      move = TwoMovesWin(vTable, aiTurn, rows, columns)
      if (move) {
+          console.log('I win in two moves!')
           return move
      }
      cleanUp()
      move = TwoMovesWin(vTable, oppTurn, rows, columns)
      if (move) {
-          console.log('call')
+          console.log('I stop you from playing a move that would let you win in two moves.')
           return move
      }
-     
+     console.log('random')
      return moveRandom(rows, columns)
 }
