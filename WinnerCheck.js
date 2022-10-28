@@ -2,12 +2,8 @@ import getCoordinates from './getCoordinates.js'
 export class WinnerCheck {
     constructor (table) {
             this.table = table
-            console.log(table)
-            console.log(this.table)
-            // this.table.style.background = 'blue'
-            // this.table = document.querySelector('table')
     }
-    checkWinHorizontally = (buttonsCoordinates, whosTurn) => {
+    checkWinHorizontally = (buttonsCoordinates, whosTurn, winCondition) => {
         let leftCount = 0 
         // countss the x or o to the left of the button that was clicked.
         let rightCount = 0 
@@ -45,12 +41,12 @@ export class WinnerCheck {
         }
         //Then we we add them up. leftCounter and rightCounter + 1 for the one the player just put down.
         // Return true if counter is = or larger then winCondition 
-        if ((leftCount + 1 + rightCount) >= this.winCondition) {
+        if ((leftCount + 1 + rightCount) >= winCondition) {
             return true
         }
         else return false
     }
-    checkWinVertically = (buttonsCoordinates, whosTurn) => {
+    checkWinVertically = (buttonsCoordinates, whosTurn, winCondition) => {
         let upwordsCount = 0 
         let downwordsCount = 0 
         const [row, column] = getCoordinates(buttonsCoordinates)
@@ -87,12 +83,12 @@ export class WinnerCheck {
         }
         //Then we we add them up. leftCounter and rightCounter + 1 for the one the player just put down.
         // Return true if counter is = or larger then winCondition 
-        if ((upwordsCount + 1 + downwordsCount) >= this.winCondition) {
+        if ((upwordsCount + 1 + downwordsCount) >= winCondition) {
             return true
         }
         else return false
     }
-    checkwinDiagonallyToTheLeft = (buttonsCoordinate, whosTurn) => {
+    checkwinDiagonallyToTheLeft = (buttonsCoordinate, whosTurn, winCondition) => {
         // We are going to count left first then right.
         let upwordsCount = 0 
         let downwordsCount = 0 
@@ -130,12 +126,12 @@ export class WinnerCheck {
         }
     
         //Then we we add them up + 1 (for the one the player just put down).
-        if ((upwordsCount + 1 + downwordsCount) >= this.winCondition) {
+        if ((upwordsCount + 1 + downwordsCount) >= winCondition) {
             return true
         }
         return false
     }
-    checkwinDiagonallyToTheRight = (buttonsCoordinate, whosTurn) => {
+    checkwinDiagonallyToTheRight = (buttonsCoordinate, whosTurn, winCondition) => {
         // We are going to count left first then right.
         let upwordsCount = 0 
         let downwordsCount = 0 
@@ -173,24 +169,21 @@ export class WinnerCheck {
         }
     
         //Then we we add them up + 1 (for the one the player just put down).
-        if ((upwordsCount + 1 + downwordsCount) >= this.winCondition) {
+        if ((upwordsCount + 1 + downwordsCount) >= winCondition) {
             return true
         }
         return false
     }
-    checkwinDiagonally = (buttonsCoordinate, whosTurn) => {
+    checkwinDiagonally = (buttonsCoordinate, whosTurn, winCondition) => {
         // check win diagonally to the right and if not a win do so for the other side. return false if no win.
-        return this.checkwinDiagonallyToTheLeft(buttonsCoordinate, whosTurn) || this.checkwinDiagonallyToTheRight(buttonsCoordinate, whosTurn)
+        return this.checkwinDiagonallyToTheLeft(buttonsCoordinate, whosTurn, winCondition) || this.checkwinDiagonallyToTheRight(buttonsCoordinate, whosTurn, winCondition)
     }
     check = (buttonsCoordinate, whosTurn, winCondition) => {
-        // console.log('here',buttonsCoordinate)
-        if (winCondition) 
-            this.winCondition = winCondition
-        if (this.checkWinHorizontally(buttonsCoordinate, whosTurn))
+        if (this.checkWinHorizontally(buttonsCoordinate, whosTurn, winCondition))
             return true
-        else if (this.checkWinVertically(buttonsCoordinate, whosTurn))
+        else if (this.checkWinVertically(buttonsCoordinate, whosTurn, winCondition))
             return true
-        else if (this.checkwinDiagonally(buttonsCoordinate, whosTurn))
+        else if (this.checkwinDiagonally(buttonsCoordinate, whosTurn, winCondition))
             return true
     }
 
