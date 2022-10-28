@@ -1,5 +1,5 @@
 import {WinnerCheck} from './WinnerCheck.js'
-const vTable = document.createElement('table')
+const vTable = document.createElement('div')
 const winnerCheck = new WinnerCheck(vTable)
 let listOfWinningMoves = []
 let theWinningMove = {
@@ -10,8 +10,8 @@ let theWinningMove = {
 }
 
 const setUpGameBoard = () => {
-     const table = document.querySelector('table')
-     vTable.innerHTML = table.innerHTML;
+     const gameBoard = document.querySelector('.game-board')
+     vTable.innerHTML = gameBoard.innerHTML;
 }
 const getRandomCoordinates = (rowsRange, columnsRange) => {
      const row = Math.floor(Math.random() * rowsRange + 1)
