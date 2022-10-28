@@ -10,7 +10,7 @@ let playerOnesWinCount = 0 // Tracks the number of times Player won the game.
 let playerTwosWinCount = 0
 let playerTiedCount = 0
 // Game Board Tag and Data
-const gameBoard = document.querySelector('table')
+const gameBoard = document.querySelector('.game-board')
 let rows = 5
 let columns = 5
 // Game info
@@ -136,22 +136,23 @@ const updateMessageBoard = (mgs) => {
 }
 const createGameBoard = () => {
     // Remove the old board if there is one.
-    if (gameBoard.firstChild) {
-        gameBoard.removeChild(gameBoard.firstChild)
+    const gameContainer = document.querySelector('.game-container')
+    if (gameContainer.firstChild) {
+        gameContainer.removeChild(gameContainer.firstChild)
     }
     //Every spot on the board will have a id name `Row:${row}-Column:${column}`
     //Then we add an eventEventListener to each spot.
     for (let row = 1; row <= rows; row++) {
-        const tr = gameBoard.insertRow()
+        const tr = document.createElement('div')
+        tr.className = 'row'
         for (let column = 1; column <= columns; column++) {
-            const td = tr.insertCell()
             const button = document.createElement('button')
             button.className = 'Tic-Tac-Toe-Boxs'
             button.id = `Row:${row}-Column:${column}`
-            td.appendChild(button)
-            tr.appendChild(td)
+            tr.appendChild(button)
             button.addEventListener('click', boxClicked)
         }
+        gameBoard.appendChild(tr)
     }
 }
 const disableGameBoard = () => {

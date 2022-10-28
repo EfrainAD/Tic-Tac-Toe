@@ -7,24 +7,29 @@
 </head>
 <body>
   <div id="container">
-    <div></div>
     <header><h1>Tic-Tac-Toe</h1></header>
-    <div class="main" id="board">
+    <main id="board">
       <h2 id="Message-Board"></h2>
   
       <!-- Game Board - This is the tic-tac-teo Board -->
-      <table></table> 
-    </div>
+      <div class="game-container">
+        <div class="game-board">
+          
+        </div>
+      </div> 
+    </main>
   
     <!-- Game controls --> 
-    <div id="game-controls">
+    <div class="aside" id="game-controls">
       <h3 id="player-one-win-count"></h3>
       <h3 id="player-two-win-count"></h3>
       <h3 id="player-tied-count"></h3>
       <button id="game-reset">New Game!</button>
-      <label for="rows">Rows</label><input id="rows" type="number">
-      <label for="columns">Columns</label><input id="columns" type="number">
-      <label for="win-condition">Win Condition</label><input id="win-condition" type="number">
+      <div class="fields">
+        <label for="rows">Rows</label><input id="rows" type="number">
+        <label for="columns">Columns</label><input id="columns" type="number">
+        <label for="win-condition">Win Condition</label><input id="win-condition" type="number">
+      </div>
     </div>
   </div>
     
