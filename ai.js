@@ -20,7 +20,7 @@ const getRandomCoordinates = (rowsRange, columnsRange) => {
      const column = Math.floor(Math.random() * columnsRange + 1)
      return [row, column]
 } 
-export const moveRandom = (rows, columns) => {
+const moveRandom = (rows, columns) => {
      const vTable = setUpGameBoard()
 
      while (true) {
