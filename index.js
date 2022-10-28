@@ -11,16 +11,16 @@ let columns = 5
 let winCondition = 3
 const gameBoard = document.querySelector('table')
 const winnerCheck = new WinnerCheck(gameBoard)
-let playerOne = 'X'
-let playerTwo = 'O'
-let playerAI = playerTwo
-let whosTurn = playerOne 
+let playerOnesSymble = 'X'
+let playerTwosSymble = 'O'
+let playerAI = playerTwosSymble
+let whosTurn = playerOnesSymble 
 
 const getOpponentPlaySimble = (playersSymble) => {
-    if (playersSymble === playerOne)
-        return playerTwo
+    if (playersSymble === playerOnesSymble)
+        return playerTwosSymble
     else
-        return playerOne
+        return playerOnesSymble
 }            
 const isTiedGame = () => {
     if (turnCounter === (document.querySelectorAll('.Tic-Tac-Toe-Boxs').length)) {
@@ -40,29 +40,29 @@ const wonGame = () => {
     updateScoreBoard()
 }
 const setupTheScoreBoard = () => {
-        document.querySelector('#player-one-win-count').innerText = `${playerOne} Won ${playerOnesWinCount} times`
+        document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
     
-        document.querySelector('#player-two-win-count').innerText = `${playerTwo} Won ${playerTwosWinCount} times`
+        document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
 
         document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updateScoreBoard = () => {
-    if (whosTurn === playerOne) {
-        document.querySelector('#player-one-win-count').innerText = `${playerOne} Won ${playerOnesWinCount} times`
+    if (whosTurn === playerOnesSymble) {
+        document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
     } else {
-        document.querySelector('#player-two-win-count').innerText = `${playerTwo} Won ${playerTwosWinCount} times`
+        document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
     }
     document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updatePlayersWinCount = () => {
-    if (whosTurn === playerOne)
+    if (whosTurn === playerOnesSymble)
         playerOnesWinCount++
     else
         playerTwosWinCount++
 }
 //Reset the whole game over
 const gameReset = () => {
-    whosTurn = playerOne
+    whosTurn = playerOnesSymble
     turnCounter = 0
     updateMessageBoard('whosTurn')
     // change varibles based the the field inputs
@@ -145,10 +145,10 @@ const disableGameBoard = () => {
         buttons[i].disabled = true
 }
 const toggleWhosTurn = () => {
-    if (whosTurn === playerOne) 
-            whosTurn = playerTwo
+    if (whosTurn === playerOnesSymble) 
+            whosTurn = playerTwosSymble
     else
-        whosTurn = playerOne
+        whosTurn = playerOnesSymble
 }
 const toggleTurn = () => {
     toggleWhosTurn()
