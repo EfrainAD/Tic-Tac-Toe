@@ -16,7 +16,7 @@ let columns = 5
 // Game info
 const winnerCheck = new WinnerCheck(gameBoard)
 let turnCounter = 0 //To know when game is tied.
-let winCondition = 3
+let winCondition = 4
 let playerOnesSymble = 'X'
 let playerTwosSymble = 'O'
 let playerAI = playerTwosSymble
