@@ -1,16 +1,22 @@
 import {playByAi} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
-let turnCounter = 0 //To know when game is tied.
+// Game Control (Control Pannel) Fields
+const columnField = document.querySelector('#columns')
+const winConditionField = document.querySelector('#win-condition')
+const rowField = document.querySelector('#rows')
+// Game Control (Control Pannel) Data
 let playerOnesWinCount = 0 // Tracks the number of times Player won the game.
 let playerTwosWinCount = 0
 let playerTiedCount = 0
-// Controls how many rows and columns the game board has
+// Game Board Tag and Data
+const gameBoard = document.querySelector('table')
 let rows = 5
 let columns = 5
-let winCondition = 3
-const gameBoard = document.querySelector('table')
+// Game info
 const winnerCheck = new WinnerCheck(gameBoard)
+let turnCounter = 0 //To know when game is tied.
+let winCondition = 3
 let playerOnesSymble = 'X'
 let playerTwosSymble = 'O'
 let playerAI = playerTwosSymble
@@ -45,6 +51,11 @@ const setupTheScoreBoard = () => {
         document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
 
         document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
+}
+const setupTheGameControls = () => {
+    winConditionField.value = winCondition
+    rowField.value = rows
+    columnField.value = columns
 }
 const updateScoreBoard = () => {
     if (whosTurn === playerOnesSymble) {
@@ -159,17 +170,11 @@ const toggleTurn = () => {
 }
 
 //addEventListener to the reset game button
-document.querySelector('#game-reset').addEventListener('click',gameReset)
-//add value to win condition field, and eventListener
-const winConditionField = document.querySelector('#win-condition')
-const rowField = document.querySelector('#rows')
-const columnField = document.querySelector('#columns')
-winConditionField.value = winCondition
-rowField.value = rows
-columnField.value = columns
+document.querySelector('#game-reset').addEventListener('click', gameReset)
 
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
 setupTheScoreBoard()
+setupTheGameControls()
 if (playerAI === playerOnesSymble)
     aiToMove()
