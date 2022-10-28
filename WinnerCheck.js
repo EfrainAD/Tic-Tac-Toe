@@ -5,9 +5,9 @@ export class WinnerCheck {
     }
     checkWinHorizontally = (buttonsCoordinates, whosTurn, winCondition) => {
         let leftCount = 0 
-        // countss the x or o to the left of the button that was clicked.
+        // countss the player's move to the left of the button that was placed.
         let rightCount = 0 
-        // countss the x or o to the right of the button that was clicked.
+        // countss the player's move to the right of the button that was placed.
         const [row, column] = getCoordinates(buttonsCoordinates)
     
         // loop that moves lelt as long as innerText is === whosTurn, 
@@ -58,7 +58,7 @@ export class WinnerCheck {
         let rowIndex = row
         let coordinateElement = this.table.querySelector(`#Row\\:${--rowIndex}-Column\\:${column}`)
         
-        // Counts players x/o above where the player just played.
+        // Counts player's moves above where the player just played.
         while (coordinateElement) {
             if (coordinateElement.innerText === whosTurn)
                 upwordsCount++
@@ -102,7 +102,7 @@ export class WinnerCheck {
         let columnIndex = column
         let coordinateElement = this.table.querySelector(`#Row\\:${--rowIndex}-Column\\:${--columnIndex}`)
         
-        // Counts players x/o above/left where the player just played.
+        // Counts player's moves above/left where the player just played.
         while (coordinateElement) {
             if (coordinateElement.innerText === whosTurn)
                 upwordsCount++
@@ -116,7 +116,7 @@ export class WinnerCheck {
         columnIndex = column
         coordinateElement = this.table.querySelector(`#Row\\:${++rowIndex}-Column\\:${++columnIndex}`)
         
-        // Counts players x/o lower/right where the player just played.
+        // Counts player's moves lower/right where the player just played.
         while (coordinateElement) {
             if (coordinateElement.innerText === whosTurn)
                 downwordsCount++
@@ -145,7 +145,7 @@ export class WinnerCheck {
         let columnIndex = column
         let coordinateElement = this.table.querySelector(`#Row\\:${--rowIndex}-Column\\:${++columnIndex}`)
         
-        // Counts players x/o above/left where the player just played.
+        // Counts player's moves above/left where the player just played.
         while (coordinateElement) {
             if (coordinateElement.innerText === whosTurn)
                 upwordsCount++
@@ -159,7 +159,7 @@ export class WinnerCheck {
         columnIndex = column
         coordinateElement = this.table.querySelector(`#Row\\:${++rowIndex}-Column\\:${--columnIndex}`)
         
-        // Counts players x/o lower/right where the player just played.
+        // Counts player's moves lower/right where the player just played.
         while (coordinateElement) {
             if (coordinateElement.innerText === whosTurn)
                 downwordsCount++
@@ -186,5 +186,4 @@ export class WinnerCheck {
         else if (this.checkwinDiagonally(buttonsCoordinate, whosTurn, winCondition))
             return true
     }
-
 }
