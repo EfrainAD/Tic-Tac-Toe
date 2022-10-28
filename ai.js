@@ -12,7 +12,6 @@ let theWinningMove = {
 const setUpGameBoard = () => {
      const table = document.querySelector('table')
      vTable.innerHTML = table.innerHTML;
-     return vTable
 }
 const getRandomCoordinates = (rowsRange, columnsRange) => {
      const row = Math.floor(Math.random() * rowsRange + 1)
@@ -20,8 +19,6 @@ const getRandomCoordinates = (rowsRange, columnsRange) => {
      return [row, column]
 } 
 const moveRandom = (rows, columns) => {
-     const vTable = setUpGameBoard()
-
      while (true) {
           const [row , column] = getRandomCoordinates(rows, columns)
           if (vTable.querySelector(`#Row\\:${row}-Column\\:${column}`).innerText === '') {
@@ -29,7 +26,7 @@ const moveRandom = (rows, columns) => {
           }
      }
 }
-const oneMoveWin = (vTable, whosTurn, winCondition, rows, columns) => {
+const oneMoveWin = (whosTurn, winCondition, rows, columns) => {
      for (let row = 1; row <= rows; row++) {
           for (let column = 1; column <= columns; column++) {
                
@@ -45,8 +42,7 @@ const oneMoveWin = (vTable, whosTurn, winCondition, rows, columns) => {
      }
      return null
 }
-const TwoMovesWin = (vTable, whosTurn, winCondition, rows, columns) => {
-     debugger
+const TwoMovesWin = (whosTurn, winCondition, rows, columns) => {
      for (let row = 1; row <= rows; row++) {
           for (let column = 1; column <= columns; column++) {
                
@@ -56,7 +52,7 @@ const TwoMovesWin = (vTable, whosTurn, winCondition, rows, columns) => {
                    aMove.innerHTML = whosTurn
 
                    while (true) {
-                        let returnedMove = oneMoveWin(vTable, whosTurn, winCondition, rows, columns)
+                        let returnedMove = oneMoveWin(whosTurn, winCondition, rows, columns)
 
                         if (returnedMove) {
                              if (!listOfWinningMoves.includes(returnedMove))
@@ -107,26 +103,25 @@ const cleanUp = () => {
 }
 export const playByAi = (aiTurn, oppTurn, winCondition, rows, columns) => {
      cleanUp()
-     const vTable = setUpGameBoard()
+     setUpGameBoard()
      let move = null
 
-     move = oneMoveWin(vTable, aiTurn, winCondition, rows, columns)
+     move = oneMoveWin(aiTurn, winCondition, rows, columns)
      if (move) {
           return move
      }
-     move = oneMoveWin(vTable, oppTurn, winCondition, rows, columns)
-     console.log(`oppOneMoveWin returned ${move}`)
+     move = oneMoveWin(oppTurn, winCondition, rows, columns)
      if (move) {
-          console.log(`Don't play there`)
+          console.log(`I don't want you to play there.`)
           return move
      }
-     move = TwoMovesWin(vTable, aiTurn, winCondition, rows, columns)
+     move = TwoMovesWin(aiTurn, winCondition, rows, columns)
      if (move) {
           console.log('I win in two moves!')
           return move
      }
      cleanUp()
-     move = TwoMovesWin(vTable, oppTurn, winCondition, rows, columns)
+     move = TwoMovesWin(oppTurn, winCondition, rows, columns)
      if (move) {
           console.log('I stopped you from playing a move that would let you win in two moves.')
           return move
