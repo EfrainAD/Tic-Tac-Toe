@@ -126,12 +126,17 @@ const placeMove = (id) => {
         toggleTurn()
     }
 }
+const randomTime = () => {
+    return Math.floor(Math.random() * 1000) + 1000
+}
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
     placeMove(e.target.id)
 }
 const aiToMove =  () => {
-    placeMove(playByAi(whosTurn, getOpponentPlaySimble(whosTurn), winCondition, rows, columns))
+    setTimeout(() => {
+        placeMove(playByAi(whosTurn, getOpponentPlaySimble(whosTurn), winCondition, rows, columns))
+    }, randomTime());
 }
 const updateMessageBoard = (mgs) => {
     const messageBoard = document.querySelector('#Message-Board')
@@ -178,7 +183,7 @@ const toggleTurn = () => {
     toggleWhosTurn()
     updateMessageBoard('whosTurn')
     if (playerAI === whosTurn) {
-        placeMove(playByAi(whosTurn, getOpponentPlaySimble(whosTurn), winCondition, rows, columns))
+        aiToMove()
     }
 }
 
