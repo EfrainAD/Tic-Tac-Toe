@@ -5,6 +5,9 @@ import {WinnerCheck} from './WinnerCheck.js'
 const columnField = document.querySelector('#columns')
 const winConditionField = document.querySelector('#win-condition')
 const rowField = document.querySelector('#rows')
+const playerAiField = document.querySelector('#play-ai')
+const playerAioption1Input = document.querySelector('#ai-player-one')
+const playerAioption2Input = document.querySelector('#ai-player-two')
 // Game Control (Control Pannel) Data
 let playerOnesWinCount = 0 // Tracks the number of times Player won the game.
 let playerTwosWinCount = 0
@@ -19,6 +22,7 @@ let turnCounter = 0 //To know when game is tied.
 let winCondition = 4
 let playerOnesSymble = 'X'
 let playerTwosSymble = 'O'
+// let playerAI = null
 let playerAI = playerTwosSymble
 let whosTurn = playerOnesSymble 
 
@@ -83,6 +87,13 @@ const gameReset = () => {
     // change varibles based the the field inputs
     rows = rowField.value
     columns = columnField.value
+    if (playerAiField.checked) {
+        if (playerAioption1Input.checked)
+            playerAI = playerOnesSymble
+        else 
+        playerAI = playerTwosSymble
+    }
+    else playerAI = null
     if ( winConditionField.value === '1') {
         winCondition = 3
         winConditionField.value = 3
@@ -173,6 +184,9 @@ const toggleTurn = () => {
 
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
+playerAiField.addEventListener('click', () => {
+    document.querySelector('.ai-setting-players').classList.toggle('display-none')
+})
 
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
