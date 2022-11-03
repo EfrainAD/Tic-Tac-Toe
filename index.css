@@ -8,11 +8,11 @@ body {
     grid-template-columns: 70% 30%;
     padding-bottom: 40em;
 }
+
 header {
     grid-column-start: 1;
     grid-column-end: end;
     background: green;
-    /* padding: 0; */
 }
 header h1 {
     margin: 0 auto;
@@ -73,8 +73,6 @@ input {
 }
 
 .Tic-Tac-Toe-Boxs {
-    height: 1.5rem;
-    width: 1.5rem;
     height: 5rem;
     width: 5rem;
     font-size: 4rem;
@@ -88,7 +86,6 @@ input {
 .display-none {
     animation: growUp 1500ms ease-in-out forwards;
     transform-origin: top center;
-    /* visibility: hidden; */
 }
 .display {
     animation: growDown 1500ms ease-in-out forwards;
@@ -127,6 +124,7 @@ input {
     width: 3.5rem;
     height: 20px;
     height: 0.8rem;
+    margin: 0.5rem;
 }
 .switch input { 
     opacity: 0;
@@ -160,7 +158,6 @@ input {
     transition: .4s;
 }
 input:checked + .slider {
-    /* background-color: #2196F3; */
     background-color: #bfb;
 }
 input:focus + .slider {
@@ -192,5 +189,22 @@ input:checked + .slider:before {
     }
     100% {
         transform: scaleY(0)
+    }
+}
+@media screen and (max-width: 600px) {
+    body {background: black;}
+    #container {
+        display: block;
+        /* grid-template-rows: auto auto auto;
+        grid-template-columns: auto; */
+    }
+    #Message-Board {
+        margin-top: 0;
+    }
+    #board {
+        padding: 1rem 0rem;
+    }
+    input {
+        width: 40%;
     }
 }
