@@ -85,8 +85,14 @@ const gameReset = () => {
     turnCounter = 0
     updateMessageBoard('whosTurn')
     // change varibles based the the field inputs
-    rows = rowField.value
-    columns = columnField.value
+    if (rowField.value > 10) {
+        rows = 10
+        rowField.value = 10
+    } else rows = rowField.value
+    if (columnField.value > 10) {
+        columns = 10
+        columnField.value = 10
+    } else columns = columnField.value
     if (playerAiField.checked) {
         if (playerAioption1Input.checked)
             playerAI = playerOnesSymble
@@ -94,7 +100,10 @@ const gameReset = () => {
         playerAI = playerTwosSymble
     }
     else playerAI = null
-    if ( winConditionField.value === '1') {
+    const minWinCondition = parseInt(columns > rows ? columns : rows)
+    if ( winConditionField.value === '1' ||
+         winConditionField.value > minWinCondition || 
+         winConditionField.value > minWinCondition ) {
         winCondition = 3
         winConditionField.value = 3
     }

@@ -75,6 +75,9 @@ input {
 .Tic-Tac-Toe-Boxs {
     height: 1.5rem;
     width: 1.5rem;
+    height: 5rem;
+    width: 5rem;
+    font-size: 4rem;
     margin: 0;
     border: none; 
     outline: none;
