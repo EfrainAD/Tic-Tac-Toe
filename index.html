@@ -6,53 +6,67 @@
   <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    Notes: 
-
-
-    <h1>Tic-Tac-Toe</h1>
-    <h2 id="Message-Board">It's X players turn</h2>
-
-    <!-- Game Board - This is the tic-tac-teo Board -->
-    <table>
-        <tr> <!-- Row 1 out of 3 -->
-            <td>
-                <button id="Row:1-Column:1" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-            <td>
-                <button id="Row:1-Column:2" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-            <td>
-                <button id="Row:1-Column:3" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-        </tr>
-        <tr> <!-- Row 2 out of 3 -->
-            <td>
-                <button id="Row:2-Column:1" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-            <td>
-                <button id="Row:2-Column:2" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-            <td>
-                <button id="Row:2-Column:3" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-        </tr>
-        <tr> <!-- Row 3 out of 3 -->
-            <td>
-                <button id="Row:3-Column:1" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-            <td>
-                <button id="Row:3-Column:2" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-            <td>
-                <button id="Row:3-Column:3" class="Tic-Tac-Toe-Boxs"></button>
-            </td>
-        </tr>
-    </table> 
-
-    <!-- Game controls -->
-    <button id="game-reset">New Game!</button>
-          
-
-    <script src="index.js"></script>
+  <div id="container">
+    <header><h1>Tic-Tac-Toe</h1></header>
+    <main id="board">
+      <h2 id="Message-Board"></h2>
+  
+      <!-- Game Board - This is the tic-tac-teo Board -->
+      <div class="game-container">
+        <div class="game-board">
+        </div>
+      </div> 
+    </main>
+  
+    <!-- Game controls --> 
+    <div class="aside" id="game-controls">
+      <p id="player-one-win-count"></p>
+      <p id="player-two-win-count"></p>
+      <p id="player-tied-count"></p>
+      <button id="game-reset">New Game!</button>
+      <div class="fields">
+        <label for="rows">Rows</label><input id="rows" type="number">
+        <label for="columns">Columns</label><input id="columns" type="number">
+        <label for="win-condition">Win Condition</label><input id="win-condition" type="number">
+        <div class="ai-settings">
+          <label for="play-ai">Play the computer</label>
+          <label class="switch">
+            <input id="play-ai" type="checkbox" checked>
+            <span class="slider"></span>
+          </label>
+          <div class="ai-setting-players display">
+            <input 
+              type="radio" 
+              id="ai-player-one" 
+              class="ai-player-options" 
+              name="ai-player" 
+              value="playerOne" 
+              checked
+            >
+            <label 
+              for="ai-player-one" 
+              class="ai-player-options">
+                First Player
+              </label>
+            <input 
+              type="radio" 
+              id="ai-player-two" 
+              class="ai-player-options" 
+              name="ai-player" 
+              value="playerTwo"
+            >
+            <label 
+              for="ai-player-two" 
+              class="ai-player-options">
+                Second Player
+            </label>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+    
+    <script type="module" src="index.js"></script>
 </body>
 </html>
