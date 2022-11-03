@@ -26,6 +26,13 @@ main {
     padding: 0.5rem;
     background-color: blue;
 }
+#game-reset {
+    box-shadow: 0px 1px black;
+}
+#game-reset:active {
+    box-shadow: 0 0.5px black;
+    transform: translateY(2px);
+}
 .fields {
     margin: 1rem;
 }
