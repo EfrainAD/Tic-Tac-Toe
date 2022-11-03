@@ -36,6 +36,10 @@ main {
 .fields {
     margin: 1rem;
 }
+input[type='number']::-webkit-inner-spin-button, 
+input[type='number']::-webkit-outer-spin-button { 
+    opacity: 1;
+}
 .ai-settings {
     margin: 1rem auto;
 }
