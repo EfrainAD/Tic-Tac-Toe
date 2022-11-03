@@ -190,7 +190,9 @@ const toggleTurn = () => {
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
 playerAiField.addEventListener('click', () => {
-    document.querySelector('.ai-setting-players').classList.toggle('display-none')
+    const aiSettings = document.querySelector('.ai-setting-players')
+    aiSettings.classList.toggle('display-none')
+    aiSettings.classList.toggle('display')
 })
 
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
