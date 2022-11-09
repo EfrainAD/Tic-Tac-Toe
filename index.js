@@ -14,8 +14,8 @@ let playerTwosWinCount = 0
 let playerTiedCount = 0
 // Game Board Tag and Data
 const gameBoard = document.querySelector('.game-board')
-let rows = 5
-let columns = 5
+let rows = 6
+let columns = 7
 // Game info
 const winnerCheck = new WinnerCheck(gameBoard)
 let turnCounter = 0 //To know when game is tied.

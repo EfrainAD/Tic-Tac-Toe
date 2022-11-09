@@ -199,9 +199,9 @@ input:checked + .slider:before {
         padding: 1rem 0rem;
     }
     .Tic-Tac-Toe-Boxs {
-        height: 4rem;
-        width: 4rem;
-        font-size: 3rem;
+        height: 3rem;
+        width: 3rem;
+        font-size: 2rem;
     }
     input {
         width: 40%;
