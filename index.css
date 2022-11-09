@@ -120,9 +120,7 @@ input {
 .switch {
     position: relative;
     display: inline-block;
-    width: 60px;
     width: 3.5rem;
-    height: 20px;
     height: 0.8rem;
     margin: 0.5rem;
 }
@@ -146,9 +144,7 @@ input {
 .slider:before {
     position: absolute;
     content: "";
-    height: 26px;
     height: 0.4rem;
-    width: 26px;
     width: .5rem;
     left: 4px;
     bottom: 4px;
@@ -195,14 +191,17 @@ input:checked + .slider:before {
     body {background: black;}
     #container {
         display: block;
-        /* grid-template-rows: auto auto auto;
-        grid-template-columns: auto; */
     }
     #Message-Board {
         margin-top: 0;
     }
     #board {
         padding: 1rem 0rem;
+    }
+    .Tic-Tac-Toe-Boxs {
+        height: 4rem;
+        width: 4rem;
+        font-size: 3rem;
     }
     input {
         width: 40%;
