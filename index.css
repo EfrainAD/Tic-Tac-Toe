@@ -164,6 +164,33 @@ input:checked + .slider:before {
     -ms-transform: translateX(2.5rem);
     transform: translateX(2.5rem);
 }
+.error-message-container {
+    background: black;
+}
+.error-message-container {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    animation: fadeIn 2s;
+  }
+  .error-message {
+    position: relative;
+    width: 80%;
+    max-width: 60rem;
+    background-color: #eee;
+    margin:  25% auto;
+    padding: 2rem;
+    border: 1px solid #777;
+  }
+  .fadeOut {
+    animation: fadeOut 2s;
+  }
 /* For when ai player option drop down, and and up.  */
 @keyframes growDown {
     0% {
@@ -186,6 +213,15 @@ input:checked + .slider:before {
     100% {
         transform: scaleY(0)
     }
+}
+/* error messages for when user put an invalid value */
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fadeOut {
+    0% {opacity: 1;}
+    100% {opacity: 0;}
 }
 @media screen and (max-width: 600px) {
     body {background: black;}

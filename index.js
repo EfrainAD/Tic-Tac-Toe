@@ -1,6 +1,12 @@
 import {playByAi} from './ai.js';
 import getCoordinates from './getCoordinates.js';
 import {WinnerCheck} from './WinnerCheck.js'
+// Default values in the game.
+const WINCONDITION = 4
+const ROWS = 6
+const COLUMNS = 7
+const ROWSLIMIT = 6
+const COLUMNSLIMIT = 7
 // Game Control (Control Pannel) Fields
 const columnField = document.querySelector('#columns')
 const winConditionField = document.querySelector('#win-condition')
@@ -14,12 +20,12 @@ let playerTwosWinCount = 0
 let playerTiedCount = 0
 // Game Board Tag and Data
 const gameBoard = document.querySelector('.game-board')
-let rows = 6
-let columns = 7
+let rows = ROWS
+let columns = COLUMNS
 // Game info
 const winnerCheck = new WinnerCheck(gameBoard)
 let turnCounter = 0 //To know when game is tied.
-let winCondition = 4
+let winCondition = WINCONDITION
 let playerOnesSymble = 'X'
 let playerTwosSymble = 'O'
 // let playerAI = null
@@ -79,6 +85,36 @@ const updatePlayersWinCount = () => {
     else
         playerTwosWinCount++
 }
+const fadeOut = (msg) => {
+    setTimeout(() => {
+        msg.classList.toggle('fadeOut')
+    }, 3000)
+    setTimeout(() => {
+        msg.classList.toggle('fadeOut')
+        msg.style.display = 'none'
+    }, 5000)
+}
+const getErrorMsg = (str) => {
+    switch (str) {
+        case 'winCondition':
+            return 'The win condition can not be 1 OR be larger then the rows or columns. The default has been set.'
+            break;
+        case 'rows':
+        case 'columns':
+            return 'The rows or columns are limited to 10, The default has been set.'
+        default:
+            return 'Something was unput incorrectly'
+            break;
+    }
+}
+const errorMessage = (err) => {
+    const msg = document.querySelector('.error-message-container')
+    const msgText = document.querySelector('.error-message')
+
+    msg.style.display = 'block'
+    msgText.innerHTML = getErrorMsg(err)
+    fadeOut(msg)
+}
 //Reset the whole game over
 const gameReset = () => {
     whosTurn = playerOnesSymble
@@ -86,12 +122,14 @@ const gameReset = () => {
     updateMessageBoard('whosTurn')
     // change varibles based the the field inputs
     if (rowField.value > 10) {
-        rows = 10
-        rowField.value = 10
+        rows = ROWSLIMIT
+        rowField.value = ROWSLIMIT
+        errorMessage('rows')
     } else rows = rowField.value
     if (columnField.value > 10) {
-        columns = 10
-        columnField.value = 10
+        columns = COLUMNSLIMIT
+        columnField.value = COLUMNSLIMIT
+        errorMessage('columns')
     } else columns = columnField.value
     if (playerAiField.checked) {
         if (playerAioption1Input.checked)
@@ -104,8 +142,9 @@ const gameReset = () => {
     if ( winConditionField.value === '1' ||
          winConditionField.value > minWinCondition || 
          winConditionField.value > minWinCondition ) {
-        winCondition = 3
-        winConditionField.value = 3
+            winCondition = WINCONDITION
+            winConditionField.value = WINCONDITION
+            errorMessage('winCondition')
     }
     else
         winCondition = winConditionField.value
@@ -195,7 +234,6 @@ const toggleTurn = () => {
         aiToMove()
     }
 }
-
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
 playerAiField.addEventListener('click', () => {
