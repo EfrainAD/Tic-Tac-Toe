@@ -52,16 +52,15 @@ input {
     display: inline-block;
     width: 90%;
 }
-
 .game-container {
     display: inline-block;
     margin: 0 auto;
-    padding: 0;
+    padding: o;
 }
 .game-board {
     display: grid;
-    width: fit-content;
-    height: fit-content;
+    /* width: fit-content;
+    height: fit-content; */
     gap: 0.05rem;
     margin: 0;
     background: black;
@@ -73,9 +72,9 @@ input {
 }
 
 .Tic-Tac-Toe-Boxs {
-    height: 5rem;
-    width: 5rem;
-    font-size: 4rem;
+    height: 6.6vw;
+    width: 6.6vw;
+    font-size: 6vw;
     margin: 0;
     border: none; 
     outline: none;
@@ -234,11 +233,14 @@ input:checked + .slider:before {
     #board {
         padding: 1rem 0rem;
     }
-    .Tic-Tac-Toe-Boxs {
-        height: 3rem;
+    /* .Tic-Tac-Toe-Boxs {
+        /* height: 3rem;
         width: 3rem;
-        font-size: 2rem;
-    }
+        font-size: 2rem; */ /*
+        height: (6.5 - 1vw);
+        width: (6.5 - 1vw);
+        font-size: 5vh;
+    } */
     input {
         width: 40%;
     }

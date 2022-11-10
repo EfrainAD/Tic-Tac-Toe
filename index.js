@@ -32,6 +32,10 @@ let playerTwosSymble = 'O'
 let playerAI = playerTwosSymble
 let whosTurn = playerOnesSymble 
 
+const testLog = () => {
+    const name = document.querySelector('.Tic-Tac-Toe-Boxs')
+    console.log(name.offsetWidth)
+}
 const getOpponentPlaySimble = (playersSymble) => {
     if (playersSymble === playerOnesSymble)
         return playerTwosSymble
@@ -152,7 +156,7 @@ const gameReset = () => {
     createGameBoard()
     if(whosTurn === playerAI)
         aiToMove()
-
+    testLog()
 } 
 const placeMove = (id) => {
     const [row, column] = getCoordinates(id)
@@ -249,3 +253,5 @@ setupTheScoreBoard()
 setupTheGameControls()
 if (playerAI === playerOnesSymble)
     aiToMove()
+// test
+testLog()
