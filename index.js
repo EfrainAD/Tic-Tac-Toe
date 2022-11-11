@@ -101,11 +101,11 @@ const fadeOut = (msg) => {
 const getErrorMsg = (str) => {
     switch (str) {
         case 'winCondition':
-            return 'The win condition can not be 1 OR be larger then the rows or columns. The default has been set.'
+            return 'The win condition can not be 1 OR <br /> be larger then the rows or columns. The default has been set.'
             break;
         case 'rows':
         case 'columns':
-            return 'The rows or columns are limited to 10, The default has been set.'
+            return 'The rows or columns are limited to 10<br /> The default has been set.'
         default:
             return 'Something was unput incorrectly'
             break;
