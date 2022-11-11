@@ -146,8 +146,8 @@ const gameReset = () => {
     if ( winConditionField.value === '1' ||
          winConditionField.value > minWinCondition || 
          winConditionField.value > minWinCondition ) {
-            winCondition = WINCONDITION
-            winConditionField.value = WINCONDITION
+            winCondition = minWinCondition
+            winConditionField.value = minWinCondition
             errorMessage('winCondition')
     }
     else
