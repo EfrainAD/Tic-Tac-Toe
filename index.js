@@ -5,8 +5,8 @@ import {WinnerCheck} from './WinnerCheck.js'
 const WINCONDITION = 4
 const ROWS = 6
 const COLUMNS = 7
-const ROWSLIMIT = 6
-const COLUMNSLIMIT = 7
+const ROWSLIMIT = 10
+const COLUMNSLIMIT = 10
 // Game Control (Control Pannel) Fields
 const columnField = document.querySelector('#columns')
 const winConditionField = document.querySelector('#win-condition')
