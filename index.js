@@ -156,7 +156,6 @@ const gameReset = () => {
     createGameBoard()
     if(whosTurn === playerAI)
         aiToMove()
-    testLog()
 } 
 const placeMove = (id) => {
     const [row, column] = getCoordinates(id)
@@ -202,6 +201,23 @@ const updateMessageBoard = (mgs) => {
     else 
         messageBoard.innerText = mgs
 }
+const drawTheBoardLines = () => {
+    const ticTacToeBox = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
+    // ticTacToeBox[0].style.backgroundColor = 'blue'
+    // console.log(ticTacToeBox)
+    ticTacToeBox.forEach(box => {
+        const [row, column] = getCoordinates(box.id)
+        if (row === 1)
+            box.style.borderTop = 'none'
+        else if (row === rows)
+            box.style.borderBottom = 'none'
+            // box.style.backgroundColor = 'blue'
+        if (column === 1)
+            box.style.borderLeft = 'none'
+        else if (column === columns)
+            box.style.borderRight = 'none'
+    })
+}
 const createGameBoard = () => {
     // Remove the old board if there is one.
     gameBoard.innerHTML = ''
@@ -219,6 +235,7 @@ const createGameBoard = () => {
         }
         gameBoard.appendChild(tr)
     }
+    drawTheBoardLines()
 }
 const disableGameBoard = () => {
     const buttons = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
@@ -253,5 +270,3 @@ setupTheScoreBoard()
 setupTheGameControls()
 if (playerAI === playerOnesSymble)
     aiToMove()
-// test
-testLog()

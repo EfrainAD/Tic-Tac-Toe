@@ -58,18 +58,18 @@ input {
     padding: o;
 }
 .game-board {
-    display: flex;
+    /* display: flex;
     flex-direction: column;
     /* width: fit-content;
     height: fit-content; */
-    gap: 0.05rem;
+    /* gap: 0.05rem;  */
     margin: 0;
     margin-bottom: 2rem;
-    background: black;
 }
 .row {
-    display: flex;
-    gap: 0.05rem;
+    /* display: flex;
+    gap: 0.05rem; */
+    padding: 0;
     margin: 0;
 }
 
@@ -77,8 +77,9 @@ input {
     height: 6.6vw;
     width: 6.6vw;
     font-size: 6vw;
+    padding: 0;
     margin: 0;
-    border: none; 
+    border: 1px solid black; 
     outline: none;
     background: gray;
 }
