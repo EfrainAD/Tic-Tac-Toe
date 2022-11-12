@@ -89,38 +89,45 @@ const updatePlayersWinCount = () => {
     else
         playerTwosWinCount++
 }
-const fadeOut = (msg) => {
+const fadeOut = async (msg, stack) => {
     setTimeout(() => {
         msg.classList.toggle('fadeOut')
     }, 3000)
     setTimeout(() => {
         msg.classList.toggle('fadeOut')
         msg.style.display = 'none'
+        
+        stack.pop()
+        if (stack.length !== 0)
+            errorMessage(stack[stack.length-1], stack)
     }, 5000)
 }
 const getErrorMsg = (str) => {
     switch (str) {
         case 'winCondition':
-            return 'The win condition can not be 1 OR <br /> be larger then the rows or columns. It\'s been set by max number allowed.'
-            break;
-        case 'rows':
+            return 'The win condition can not be 1 <br> OR <br /> be larger then the rows or columns. It\'s been set by max number allowed.'
+        case 'rows': 
+            return 'The rows are limited to 10<br /> So it has been set to 10.'
         case 'columns':
-            return 'The rows or columns are limited to 10<br /> The default has been set.'
+            return 'The columns are limited to 10<br /> So it has been set to 10.'
         default:
             return 'Something was unput incorrectly'
-            break;
     }
 }
-const errorMessage = (err) => {
+const errorMessage = (err, stack) => {
     const msg = document.querySelector('.error-message-container')
     const msgText = document.querySelector('.error-message')
 
     msg.style.display = 'block'
     msgText.innerHTML = getErrorMsg(err)
-    fadeOut(msg)
+    fadeOut(msg, stack)
 }
-//Reset the whole game over
+const offLoadMsgStack = async (stack) => {
+    stack = stack.reverse()
+    errorMessage(stack[stack.length-1], stack)
+}
 const gameReset = () => {
+    const msgStack = []
     whosTurn = playerOnesSymble
     turnCounter = 0
     updateMessageBoard('whosTurn')
@@ -128,12 +135,12 @@ const gameReset = () => {
     if (rowField.value > 10) {
         rows = ROWSLIMIT
         rowField.value = ROWSLIMIT
-        errorMessage('rows')
+        msgStack.push('rows')
     } else rows = rowField.value
     if (columnField.value > 10) {
         columns = COLUMNSLIMIT
         columnField.value = COLUMNSLIMIT
-        errorMessage('columns')
+        msgStack.push('columns')
     } else columns = columnField.value
     if (playerAiField.checked) {
         if (playerAioption1Input.checked)
@@ -148,11 +155,12 @@ const gameReset = () => {
          winConditionField.value > minWinCondition ) {
             winCondition = minWinCondition
             winConditionField.value = minWinCondition
-            errorMessage('winCondition')
+            msgStack.push('winCondition')
     }
     else
         winCondition = winConditionField.value
     // Remove the gameboard and remake it.
+    offLoadMsgStack(msgStack)
     createGameBoard()
     if(whosTurn === playerAI)
         aiToMove()
