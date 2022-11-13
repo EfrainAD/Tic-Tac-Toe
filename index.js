@@ -26,11 +26,39 @@ let columns = COLUMNS
 const winnerCheck = new WinnerCheck(gameBoard)
 let turnCounter = 0 //To know when game is tied.
 let winCondition = WINCONDITION
-let playerOnesSymble = 'X'
+// let playerOnesSymble = 'X'
+let playerOnesSymble = '🙈'
 let playerTwosSymble = 'O'
 // let playerAI = null
 let playerAI = playerTwosSymble
 let whosTurn = playerOnesSymble 
+const playerSymbleOptions = [
+    '🙈',
+    '🙉',
+    '🙊',
+    '🐵',
+    '🐶',
+    '🐺',
+    '🦊',
+    '😸',
+    '🦁',
+    '🐯',
+    '🐴',
+    '🐮',
+    '🐷',
+    '🐭',
+    '🐰',
+    '🐹',
+    '🐻',
+    '🐻‍❄️',
+    '🐨',
+    '🐼',
+    '🦥',
+    '🐔',
+    '🐣',
+    '🐸',
+    '🐲',
+]
 
 const testLog = () => {
     const name = document.querySelector('.Tic-Tac-Toe-Boxs')
