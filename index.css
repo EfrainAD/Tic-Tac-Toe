@@ -95,7 +95,6 @@ input {
     border-left: black solid 1px;
     border-radius: 0 10px 10px 0;
 }
-
 /* toggle buttons for what player the AI is. */
 .display-none {
     animation: growUp 1500ms ease-in-out forwards;

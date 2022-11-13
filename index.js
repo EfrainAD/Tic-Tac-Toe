@@ -96,7 +96,7 @@ const fadeOut = async (msg, stack) => {
     setTimeout(() => {
         msg.classList.toggle('fadeOut')
         msg.style.display = 'none'
-        
+
         stack.pop()
         if (stack.length !== 0)
             errorMessage(stack[stack.length-1], stack)
@@ -136,12 +136,12 @@ const gameReset = () => {
         rows = ROWSLIMIT
         rowField.value = ROWSLIMIT
         msgStack.push('rows')
-    } else rows = rowField.value
+    } else rows = parseInt(rowField.value)
     if (columnField.value > 10) {
         columns = COLUMNSLIMIT
         columnField.value = COLUMNSLIMIT
         msgStack.push('columns')
-    } else columns = columnField.value
+    } else columns = parseInt(columnField.value)
     if (playerAiField.checked) {
         if (playerAioption1Input.checked)
             playerAI = playerOnesSymble
@@ -158,9 +158,10 @@ const gameReset = () => {
             msgStack.push('winCondition')
     }
     else
-        winCondition = winConditionField.value
+        winCondition = parseInt(winConditionField.value)
     // Remove the gameboard and remake it.
-    offLoadMsgStack(msgStack)
+    if (msgStack.length !== 0)
+        offLoadMsgStack(msgStack)
     createGameBoard()
     if(whosTurn === playerAI)
         aiToMove()
@@ -211,14 +212,23 @@ const updateMessageBoard = (mgs) => {
 }
 const drawTheBoardLines = () => {
     const ticTacToeBox = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
+    console.log('drawTheBoardLines')
+    console.log('rows', rows)
+    console.log('columns', columns)
     // ticTacToeBox[0].style.backgroundColor = 'blue'
     // console.log(ticTacToeBox)
     ticTacToeBox.forEach(box => {
         const [row, column] = getCoordinates(box.id)
-        if (row === 1)
-            box.style.borderTop = 'none'
-        else if (row === rows)
-            box.style.borderBottom = 'none'
+        // console.log('row', row)
+        // console.log('column', column)
+        // console.log('again')
+        console.log('row', row)
+        if (row === 1){
+            // console.log('row===1',row, column)
+            box.style.borderTop = 'none'}
+        else if (row === rows){
+            console.log('row===rows',row, column)
+            box.style.borderBottom = 'none'}
             // box.style.backgroundColor = 'blue'
         if (column === 1)
             box.style.borderLeft = 'none'
@@ -227,6 +237,9 @@ const drawTheBoardLines = () => {
     })
 }
 const createGameBoard = () => {
+    // console.log('createGameBoard')
+    // console.log('rows', rows)
+    // console.log('columns', columns)
     // Remove the old board if there is one.
     gameBoard.innerHTML = ''
     //Every spot on the board will have a id name `Row:${row}-Column:${column}`
@@ -263,6 +276,18 @@ const toggleTurn = () => {
         aiToMove()
     }
 }
+const setBoardToTicTacToe = () => {
+    rowField.value = 3
+    columnField.value = 3
+    winConditionField.value = 3
+    gameReset()
+}
+const setBoardToConnect4 = () => {
+    rowField.value = 6
+    columnField.value = 7
+    winConditionField.value = 4
+    gameReset()
+}
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
 playerAiField.addEventListener('click', () => {
@@ -270,6 +295,8 @@ playerAiField.addEventListener('click', () => {
     aiSettings.classList.toggle('display-none')
     aiSettings.classList.toggle('display')
 })
+document.querySelector('#game-mode-3').addEventListener('click', setBoardToTicTacToe)
+document.querySelector('#game-mode-4').addEventListener('click', setBoardToConnect4)
 
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
