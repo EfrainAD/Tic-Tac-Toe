@@ -29,6 +29,7 @@ const winnerCheck = new WinnerCheck(gameBoard)
 let turnCounter = 0 //To know when game is tied.
 let winCondition = WINCONDITION
 // let playerOnesSymble = 'X'
+// let playerTwosSymble = 'O'
 let playerOnesSymble = '🐶'
 let playerTwosSymble = '🦊'
 // let playerAI = null
@@ -121,11 +122,8 @@ const setupTheGameControls = () => {
     playerTwosSymbleField[defaultPlayerTwoIndex].selected = 'selected'
 }
 const updateScoreBoard = () => {
-    if (whosTurn === playerOnesSymble) {
         document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
-    } else {
         document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
-    }
     document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updatePlayersWinCount = () => {
@@ -173,9 +171,7 @@ const offLoadMsgStack = async (stack) => {
 }
 const gameReset = () => {
     const msgStack = []
-    whosTurn = playerOnesSymble
     turnCounter = 0
-    updateMessageBoard('whosTurn')
     // change varibles based the the field inputs
     if (rowField.value > 10) {
         rows = ROWSLIMIT
@@ -187,6 +183,13 @@ const gameReset = () => {
         columnField.value = COLUMNSLIMIT
         msgStack.push('columns')
     } else columns = parseInt(columnField.value)
+    console.log(playerOnesSymbleField.value)
+    console.log(playerTwosSymbleField.value)
+    playerOnesSymble = playerOnesSymbleField.value
+    console.log('play', playerOnesSymble)
+    playerTwosSymble = playerTwosSymbleField.value
+    console.log('play', playerTwosSymble)
+    whosTurn = playerOnesSymble
     if (playerAiField.checked) {
         if (playerAioption1Input.checked)
             playerAI = playerOnesSymble
@@ -207,6 +210,8 @@ const gameReset = () => {
     // Remove the gameboard and remake it.
     if (msgStack.length !== 0)
         offLoadMsgStack(msgStack)
+    updateMessageBoard('whosTurn')
+    updateScoreBoard()
     createGameBoard()
     if(whosTurn === playerAI)
         aiToMove()
