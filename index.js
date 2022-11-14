@@ -94,12 +94,12 @@ const wonGame = () => {
 }
 const setupTheMessageBoard = () => {
     const messageBoard = document.querySelector('#Message-Board')
-    messageBoard.innerHTML = `It's ${playerOnesSymble} player's turn`
+    messageBoard.innerHTML = `It's <span class="player">${playerOnesSymble}</span> player's turn`
 }
 const setupTheScoreBoard = () => {
-        document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
+        document.querySelector('#player-one-win-count').innerHTML = `<span class="player">${playerOnesSymble}</span> Won ${playerOnesWinCount} times`
     
-        document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
+        document.querySelector('#player-two-win-count').innerHTML = `<span class="player">${playerTwosSymble}</span>  Won ${playerTwosWinCount} times`
 
         document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
@@ -122,8 +122,8 @@ const setupTheGameControls = () => {
     playerTwosSymbleField[defaultPlayerTwoIndex].selected = 'selected'
 }
 const updateScoreBoard = () => {
-    document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
-    document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
+    document.querySelector('#player-one-win-count').innerHTML = `<span class="player">${playerOnesSymble}</span> Won ${playerOnesWinCount} times`
+    document.querySelector('#player-two-win-count').innerHTML = `<span class="player">${playerTwosSymble}</span> Won ${playerTwosWinCount} times`
     document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updatePlayersWinCount = () => {
@@ -252,9 +252,9 @@ const updateMessageBoard = (mgs) => {
     const messageBoard = document.querySelector('#Message-Board')
     //update display to whos turn it is next
     if (mgs === 'whosTurn') 
-        messageBoard.innerText = `It's ${whosTurn} players turn`
+        messageBoard.innerHTML = `It's <span class="player">${whosTurn}</span> player's turn`
     else if (mgs === 'winner')
-        messageBoard.innerText = `${whosTurn} player Won!`
+        messageBoard.innerHTML = `<span class="player">${whosTurn}</span> player Won!`
     else if (mgs === 'tied')
         messageBoard.innerText = 'This game is a tie!'
     else 
