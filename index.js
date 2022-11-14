@@ -122,8 +122,8 @@ const setupTheGameControls = () => {
     playerTwosSymbleField[defaultPlayerTwoIndex].selected = 'selected'
 }
 const updateScoreBoard = () => {
-        document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
-        document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
+    document.querySelector('#player-one-win-count').innerText = `${playerOnesSymble} Won ${playerOnesWinCount} times`
+    document.querySelector('#player-two-win-count').innerText = `${playerTwosSymble} Won ${playerTwosWinCount} times`
     document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
 }
 const updatePlayersWinCount = () => {
@@ -298,7 +298,7 @@ const createGameBoard = () => {
         const tr = document.createElement('div')
         tr.className = 'row'
         for (let column = 1; column <= columns; column++) {
-            const button = document.createElement('button')
+            const button = document.createElement('div')
             button.className = 'Tic-Tac-Toe-Boxs'
             button.id = `Row:${row}-Column:${column}`
             tr.appendChild(button)

@@ -74,12 +74,10 @@ input {
     height: 6.6vw;
     width: 6.6vw;
     font-size: 6vw;
-    /* font-weight: bold; */
     padding: 0;
     margin: 0;
     border: 1px solid black; 
     outline: none;
-    /* background: gray; */
     background: white;
 }
 
