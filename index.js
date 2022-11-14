@@ -12,6 +12,8 @@ const columnField = document.querySelector('#columns')
 const winConditionField = document.querySelector('#win-condition')
 const rowField = document.querySelector('#rows')
 const playerAiField = document.querySelector('#play-ai')
+const playerOnesSymbleField = document.querySelector('#player-1-symble')
+const playerTwosSymbleField = document.querySelector('#player-2-symble')
 const playerAioption1Input = document.querySelector('#ai-player-one')
 const playerAioption2Input = document.querySelector('#ai-player-two')
 // Game Control (Control Pannel) Data
@@ -27,12 +29,14 @@ const winnerCheck = new WinnerCheck(gameBoard)
 let turnCounter = 0 //To know when game is tied.
 let winCondition = WINCONDITION
 // let playerOnesSymble = 'X'
-let playerOnesSymble = '🙈'
-let playerTwosSymble = 'O'
+let playerOnesSymble = '🐶'
+let playerTwosSymble = '🦊'
 // let playerAI = null
 let playerAI = playerTwosSymble
 let whosTurn = playerOnesSymble 
 const playerSymbleOptions = [
+    'X',
+    'O',
     '🙈',
     '🙉',
     '🙊',
@@ -58,7 +62,7 @@ const playerSymbleOptions = [
     '🐣',
     '🐸',
     '🐲',
-]
+] //<option value="volvo">Volvo</option>
 
 const testLog = () => {
     const name = document.querySelector('.Tic-Tac-Toe-Boxs')
@@ -102,6 +106,19 @@ const setupTheGameControls = () => {
     winConditionField.value = winCondition
     rowField.value = rows
     columnField.value = columns
+    //<option value="volvo">Volvo</option>
+    let playerOptions = ''
+    playerSymbleOptions.forEach(option => {
+        playerOptions += `<option value="${option}">${option}</option>`
+    })
+    console.log(playerOptions)
+    playerOnesSymbleField.innerHTML = playerOptions
+    playerTwosSymbleField.innerHTML = playerOptions
+
+    const defaultPlayerOneIndex = playerSymbleOptions.indexOf(playerOnesSymble)
+    const defaultPlayerTwoIndex = playerSymbleOptions.indexOf(playerTwosSymble)
+    playerOnesSymbleField[defaultPlayerOneIndex].selected = 'selected'
+    playerTwosSymbleField[defaultPlayerTwoIndex].selected = 'selected'
 }
 const updateScoreBoard = () => {
     if (whosTurn === playerOnesSymble) {
@@ -240,9 +257,9 @@ const updateMessageBoard = (mgs) => {
 }
 const drawTheBoardLines = () => {
     const ticTacToeBox = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
-    console.log('drawTheBoardLines')
-    console.log('rows', rows)
-    console.log('columns', columns)
+    // console.log('drawTheBoardLines')
+    // console.log('rows', rows)
+    // console.log('columns', columns)
     // ticTacToeBox[0].style.backgroundColor = 'blue'
     // console.log(ticTacToeBox)
     ticTacToeBox.forEach(box => {
@@ -250,12 +267,12 @@ const drawTheBoardLines = () => {
         // console.log('row', row)
         // console.log('column', column)
         // console.log('again')
-        console.log('row', row)
+        // console.log('row', row)
         if (row === 1){
             // console.log('row===1',row, column)
             box.style.borderTop = 'none'}
         else if (row === rows){
-            console.log('row===rows',row, column)
+            // console.log('row===rows',row, column)
             box.style.borderBottom = 'none'}
             // box.style.backgroundColor = 'blue'
         if (column === 1)
