@@ -32,7 +32,6 @@ let winCondition = WINCONDITION
 // let playerTwosSymble = 'O'
 let playerOnesSymble = '🐶'
 let playerTwosSymble = '🦊'
-// let playerAI = null
 let playerAI = playerTwosSymble
 let whosTurn = playerOnesSymble 
 const playerSymbleOptions = [
@@ -65,10 +64,6 @@ const playerSymbleOptions = [
     '🐲',
 ]
 
-const testLog = () => {
-    const name = document.querySelector('.Tic-Tac-Toe-Boxs')
-    console.log(name.offsetWidth)
-}
 const getOpponentPlaySimble = (playersSymble) => {
     if (playersSymble === playerOnesSymble)
         return playerTwosSymble

@@ -1,6 +1,14 @@
 # Tic-Tac-Toe
 Tic-Tac-Toe game for weekend HW 1 project on week 1
 
+# Overcomeing challenge
+When displaying multiple error messages:
+Switching from display: none to Display block too fast made it to where the animation wouldn't work. I found nothing online to tell me why I had this problem, and had to add another setTimeout to get around it. (It displayed just fine, without the animation though.)
+
+I made a board display with gap feature, but sometimes one gab was larger then the othere, so I had to let this idea go, and change the boarders with a function to customize it by where it was in the "line up".
+
+Because the AI had to track the "successful" move, then see if it quilityfied as a win, and it had to wait to process everything first to know, and keep the best one, this got a little trickly, and messey to keep track of. Was a good experince to try and work this out.
+
 ![General Assembly Logo](http://i.imgur.com/ke8USTq.png)
 
 # Tic Tac Toe
