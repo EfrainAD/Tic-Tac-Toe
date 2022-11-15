@@ -63,7 +63,7 @@ const playerSymbleOptions = [
     '🐣',
     '🐸',
     '🐲',
-] //<option value="volvo">Volvo</option>
+]
 
 const testLog = () => {
     const name = document.querySelector('.Tic-Tac-Toe-Boxs')
@@ -97,34 +97,53 @@ const setupTheMessageBoard = () => {
     messageBoard.innerHTML = `It's <span class="player">${playerOnesSymble}</span> player's turn`
 }
 const setupTheScoreBoard = () => {
-        document.querySelector('#player-one-win-count').innerHTML = `<span class="player">${playerOnesSymble}</span> Won ${playerOnesWinCount} times`
-    
-        document.querySelector('#player-two-win-count').innerHTML = `<span class="player">${playerTwosSymble}</span>  Won ${playerTwosWinCount} times`
-
-        document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
+    updateScoreBoard()
 }
-const setupTheGameControls = () => {
-    winConditionField.value = winCondition
-    rowField.value = rows
-    columnField.value = columns
-    //<option value="volvo">Volvo</option>
-    let playerOptions = ''
-    playerSymbleOptions.forEach(option => {
-        playerOptions += `<option value="${option}">${option}</option>`
-    })
-    console.log(playerOptions)
-    playerOnesSymbleField.innerHTML = playerOptions
-    playerTwosSymbleField.innerHTML = playerOptions
-
+const selectPlayersDefultSymble = () => {
     const defaultPlayerOneIndex = playerSymbleOptions.indexOf(playerOnesSymble)
     const defaultPlayerTwoIndex = playerSymbleOptions.indexOf(playerTwosSymble)
     playerOnesSymbleField[defaultPlayerOneIndex].selected = 'selected'
     playerTwosSymbleField[defaultPlayerTwoIndex].selected = 'selected'
 }
+const importPlayerSymbleOtionsHTMLselect = () => {
+    let playerOptions = ''
+    playerSymbleOptions.forEach(option => {
+        playerOptions += `<option value="${option}">${option}</option>`
+    })
+    playerOnesSymbleField.innerHTML = playerOptions
+    playerTwosSymbleField.innerHTML = playerOptions
+}
+const setupTheGameControls = () => {
+    winConditionField.value = winCondition
+    rowField.value = rows
+    columnField.value = columns
+    importPlayerSymbleOtionsHTMLselect()
+    selectPlayersDefultSymble()
+}
+const getWinStamentInHTML = (playersSymble, playersWinCount) => {
+    if (playersWinCount !== 1) {
+        return `<span class="player">${playersSymble}</span> Won ${playersWinCount} times`
+    } else {
+        return `<span class="player">${playersSymble}</span> Won ${playersWinCount} time`
+    }
+}
+const getTiedStamentInHTML = () => {
+    if (playerTiedCount !== 1) {
+        return `The game was tied ${playerTiedCount} times`
+    } else {
+        return `The game was tied ${playerTiedCount} time`
+    }
+}
 const updateScoreBoard = () => {
-    document.querySelector('#player-one-win-count').innerHTML = `<span class="player">${playerOnesSymble}</span> Won ${playerOnesWinCount} times`
-    document.querySelector('#player-two-win-count').innerHTML = `<span class="player">${playerTwosSymble}</span> Won ${playerTwosWinCount} times`
-    document.querySelector('#player-tied-count').innerText = `The game was tied ${playerTiedCount} times`
+    const playerOneScore = document.querySelector('#player-one-win-count')
+    const playerTwoScore = document.querySelector('#player-two-win-count')
+    const playersTieds =  document.querySelector('#player-tied-count')
+
+    playerOneScore.innerHTML = getWinStamentInHTML(playerOnesSymble, playerOnesWinCount)
+
+   playerTwoScore.innerHTML = getWinStamentInHTML(playerTwosSymble, playerTwosWinCount)
+
+   playersTieds.innerText = getTiedStamentInHTML()
 }
 const updatePlayersWinCount = () => {
     if (whosTurn === playerOnesSymble)
@@ -169,27 +188,30 @@ const offLoadMsgStack = async (stack) => {
     stack = stack.reverse()
     errorMessage(stack[stack.length-1], stack)
 }
-const gameReset = () => {
-    const msgStack = []
-    turnCounter = 0
-    // change varibles based the the field inputs
+const importRows = (msgStack) => {
     if (rowField.value > 10) {
         rows = ROWSLIMIT
         rowField.value = ROWSLIMIT
         msgStack.push('rows')
-    } else rows = parseInt(rowField.value)
+    } 
+    else 
+        rows = parseInt(rowField.value)
+}
+const importColumns = (msgStack) => {
     if (columnField.value > 10) {
         columns = COLUMNSLIMIT
         columnField.value = COLUMNSLIMIT
         msgStack.push('columns')
-    } else columns = parseInt(columnField.value)
-    console.log(playerOnesSymbleField.value)
-    console.log(playerTwosSymbleField.value)
+    } 
+    else 
+        columns = parseInt(columnField.value)
+}
+const importPlayersSymbles = () => {
     playerOnesSymble = playerOnesSymbleField.value
-    console.log('play', playerOnesSymble)
     playerTwosSymble = playerTwosSymbleField.value
-    console.log('play', playerTwosSymble)
     whosTurn = playerOnesSymble
+}
+const importAiChoices = () => {
     if (playerAiField.checked) {
         if (playerAioption1Input.checked)
             playerAI = playerOnesSymble
@@ -197,6 +219,8 @@ const gameReset = () => {
         playerAI = playerTwosSymble
     }
     else playerAI = null
+}
+const importWinCondition = (msgStack) => {
     const minWinCondition = parseInt(columns > rows ? columns : rows)
     if ( winConditionField.value === '1' ||
          winConditionField.value > minWinCondition || 
@@ -207,9 +231,21 @@ const gameReset = () => {
     }
     else
         winCondition = parseInt(winConditionField.value)
-    // Remove the gameboard and remake it.
+}
+const gameReset = () => {
+    const msgStack = []
+    turnCounter = 0
+    // import users choices
+    importRows(msgStack)
+    importColumns(msgStack)
+    importPlayersSymbles()
+    importAiChoices()
+    importWinCondition(msgStack)
+
     if (msgStack.length !== 0)
         offLoadMsgStack(msgStack)
+    
+    // Remove the gameboard and remake it.
     updateMessageBoard('whosTurn')
     updateScoreBoard()
     createGameBoard()
@@ -218,13 +254,13 @@ const gameReset = () => {
 } 
 const placeMove = (id) => {
     const [row, column] = getCoordinates(id)
-    // const hi = `#Row\\:${4}-Column\\:${4}`
-    // const selectedBox = document.querySelector(hi)
     const selectedBox = document.querySelector(`#Row\\:${row}-Column\\:${column}`)
-    // placeMove(selectedBox)
-    selectedBox.innerText = whosTurn    //Mark the box with X or O
-    selectedBox.disabled = true         //Disable the box just clicked on, so it can't be used.
-    turnCounter++                       //Updats the turnCounter so the game end if there is a tie.
+    // Mark the box
+    selectedBox.innerText = whosTurn
+    // Disable the box just clicked on, so it can't be used.
+    selectedBox.disabled = true
+    // Updats the turnCounter so the game end if there is a tie.
+    turnCounter++
     if (winnerCheck.check(selectedBox.id, whosTurn, winCondition)) {
         wonGame()
         disableGameBoard()
@@ -244,6 +280,7 @@ const boxClicked = (e) => {
     placeMove(e.target.id)
 }
 const aiToMove =  () => {
+    // Added delay to make bot feel more human.
     setTimeout(() => {
         placeMove(playByAi(whosTurn, getOpponentPlaySimble(whosTurn), winCondition, rows, columns))
     }, randomTime());
@@ -262,24 +299,13 @@ const updateMessageBoard = (mgs) => {
 }
 const drawTheBoardLines = () => {
     const ticTacToeBox = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
-    // console.log('drawTheBoardLines')
-    // console.log('rows', rows)
-    // console.log('columns', columns)
-    // ticTacToeBox[0].style.backgroundColor = 'blue'
-    // console.log(ticTacToeBox)
+
     ticTacToeBox.forEach(box => {
         const [row, column] = getCoordinates(box.id)
-        // console.log('row', row)
-        // console.log('column', column)
-        // console.log('again')
-        // console.log('row', row)
         if (row === 1){
-            // console.log('row===1',row, column)
             box.style.borderTop = 'none'}
         else if (row === rows){
-            // console.log('row===rows',row, column)
             box.style.borderBottom = 'none'}
-            // box.style.backgroundColor = 'blue'
         if (column === 1)
             box.style.borderLeft = 'none'
         else if (column === columns)
@@ -287,13 +313,8 @@ const drawTheBoardLines = () => {
     })
 }
 const createGameBoard = () => {
-    // console.log('createGameBoard')
-    // console.log('rows', rows)
-    // console.log('columns', columns)
-    // Remove the old board if there is one.
     gameBoard.innerHTML = ''
-    //Every spot on the board will have a id name `Row:${row}-Column:${column}`
-    //Then we add an eventEventListener to each spot.
+    // Create each 'button in there propoer rows
     for (let row = 1; row <= rows; row++) {
         const tr = document.createElement('div')
         tr.className = 'row'
@@ -310,8 +331,8 @@ const createGameBoard = () => {
 }
 const disableGameBoard = () => {
     const buttons = document.querySelectorAll('.Tic-Tac-Toe-Boxs')
-    for (let i = 0; i < buttons.length; i++) 
-        buttons[i].disabled = true
+    buttons.forEach(button => 
+        button.removeEventListener('click', boxClicked))
 }
 const toggleWhosTurn = () => {
     if (whosTurn === playerOnesSymble) 
