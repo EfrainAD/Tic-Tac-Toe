@@ -8,10 +8,10 @@
 </head>
 <body>
   <div id="container">
+    <!-- What displays above the game board -->
     <header><h1>Tic-Tac-Toe</h1></header>
     <main id="board">
       <h2 id="Message-Board"></h2>
-  
       <!-- Game Board - This is the tic-tac-teo Board -->
       <div class="game-container">
         <div class="game-board">
@@ -21,10 +21,12 @@
   
     <!-- Game controls --> 
     <div id="game-controls">
+      <!-- Messeges (Game Controls) -->
       <p id="player-one-win-count"></p>
       <p id="player-two-win-count"></p>
       <p id="player-tied-count"></p>
       <form action="" onsubmit="return false">
+        <!-- Buttons for new game's layout -->
         <button id="game-reset">New Game!</button>
         <div class="fields">
           <div class="game-mode-btn">
@@ -34,18 +36,19 @@
               Connect 4
             </button>
           </div>
+          <!-- custom (Game Controls) -->
           <label for="rows">Rows</label><input id="rows" type="number">
           <label for="columns">Columns</label><input id="columns" type="number">
           <label for="win-condition">Win Condition</label><input id="win-condition" type="number">
+          <!-- Player's play as (Game Control) -->
           <div class="players-symble-container">
             <label for="players">Choose who you play as.</label>
             <select name="player-1-symble" id="player-1-symble" class="player-symble-otions">
-
             </select>
             <select name="player-2-symble" id="player-2-symble" class="player-symble-otions">
-              
             </select>
           </div>
+          <!-- AI (Game Control) -->
           <div class="ai-settings">
             <label for="play-ai">Play the computer</label>
             <label class="switch">
@@ -84,6 +87,7 @@
       </form>
     </div>
   </div>
+  <!-- 'errer' messages for when user puts an invalid entry-->
   <div class="error-message-container">
     <p class="error-message">
       test

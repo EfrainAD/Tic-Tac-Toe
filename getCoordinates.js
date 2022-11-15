@@ -1,6 +1,6 @@
 
-// get  Coordinates row and column for game.
-// returns  return [row, column] 
+// get coordinates row and column for game.
+// return [row, column] 
 export default (coordinate) => {
      //split the coordinate into there x and y componits.
      coordinate = coordinate.replace(/[^\d:]/g, '') //Took out the abc's by only keeping digits and ':'
