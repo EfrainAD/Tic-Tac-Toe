@@ -359,13 +359,14 @@ const setBoardToConnect4 = () => {
     winConditionField.value = 4
     gameReset()
 }
-//addEventListener to the reset game button
-document.querySelector('#game-reset').addEventListener('click', gameReset)
-playerAiField.addEventListener('click', () => {
+const handleAiMenuAnimation = () => {
     const aiSettings = document.querySelector('.ai-setting-players')
     aiSettings.classList.toggle('display-none')
     aiSettings.classList.toggle('display')
-})
+}
+//addEventListener to the reset game button
+document.querySelector('#game-reset').addEventListener('click', gameReset)
+playerAiField.addEventListener('click', handleAiMenuAnimation)
 document.querySelector('#game-mode-3').addEventListener('click', setBoardToTicTacToe)
 document.querySelector('#game-mode-4').addEventListener('click', setBoardToConnect4)
 
