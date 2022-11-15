@@ -151,18 +151,16 @@ const updatePlayersWinCount = () => {
     else
         playerTwosWinCount++
 }
-const fadeOut = async (msg, stack) => {
+const fadeInAndOut = (msg, stack) => {
     setTimeout(() => {
-        msg.classList.toggle('fadeOut')
-    }, 3000)
-    setTimeout(() => {
-        msg.classList.toggle('fadeOut')
         msg.style.display = 'none'
-
+    }, 5000)
+    // Importent Note: This is needed because if the display to block happens to fast, the animation will not take effect.
+    setTimeout(() => {
         stack.pop()
         if (stack.length !== 0)
             errorMessage(stack[stack.length-1], stack)
-    }, 5000)
+    }, 5100)
 }
 const getErrorMsg = (str) => {
     switch (str) {
@@ -179,10 +177,10 @@ const getErrorMsg = (str) => {
 const errorMessage = (err, stack) => {
     const msg = document.querySelector('.error-message-container')
     const msgText = document.querySelector('.error-message')
-
-    msg.style.display = 'block'
+    
     msgText.innerHTML = getErrorMsg(err)
-    fadeOut(msg, stack)
+    msg.style.display = 'block'
+    fadeInAndOut(msg, stack)
 }
 const offLoadMsgStack = async (stack) => {
     stack = stack.reverse()
