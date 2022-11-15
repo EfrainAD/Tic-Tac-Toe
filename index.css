@@ -22,7 +22,7 @@ header h1 {
 #game-controls {
     padding: 0.5rem;
     padding: 0.5rem;
-    background-color: blue;
+    background: blue;
 }
 #game-reset {
     box-shadow: 0px 1px black;
