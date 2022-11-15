@@ -8,7 +8,6 @@ body {
     grid-template-columns: 70% 30%;
     padding-bottom: 40em;
 }
-
 header {
     grid-column-start: 1;
     grid-column-end: end;
@@ -18,9 +17,7 @@ header h1 {
     margin: 0 auto;
     padding: 0;
 }
-/* main {
-    background: gray;
-} */
+/* Game controls */
 #game-controls {
     padding: 0.5rem;
     padding: 0.5rem;
@@ -52,15 +49,13 @@ input {
     display: inline-block;
     width: 90%;
 }
+/* Game Board Display */
 .game-container {
     display: inline-block;
     margin: 0 auto;
     padding: 0;
 }
 .game-board {
-    /* display: flex; */
-    /* width: fit-content;
-    height: fit-content; */
     margin: 0;
     margin-bottom: 2rem;
 }
@@ -70,7 +65,6 @@ input {
     margin: 0;
     width: 90%;
 }
-
 .Tic-Tac-Toe-Boxs {
     height: 6.4vw;
     width: 6.4vw;
@@ -81,7 +75,6 @@ input {
     outline: none;
     background: white;
 }
-
 /* Game option mode for tic-tac-toe or connect 4 */
 .game-mode-btn {
     margin: 0.5rem;
@@ -135,7 +128,6 @@ input {
     box-shadow: 0 0.5px #4c4;
     transform: translateY(2px);
 }
-
 /* toggle switch */
 .switch {
     position: relative;
