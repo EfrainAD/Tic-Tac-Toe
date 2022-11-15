@@ -12,6 +12,7 @@ header {
     grid-column-start: 1;
     grid-column-end: end;
     background: green;
+    padding: 0.2rem;
 }
 header h1 {
     margin: 0 auto;
