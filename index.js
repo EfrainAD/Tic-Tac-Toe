@@ -277,7 +277,9 @@ const randomTime = () => {
 }
 //////////HOME FUNCTION //Actions to take when a tic tac toe but has been clicked/picked
 const boxClicked = (e) => {
-    placeMove(e.target.id)
+    if (whosTurn !== playerAI) {
+        placeMove(e.target.id)
+    }
 }
 const aiToMove =  () => {
     // Added delay to make bot feel more human.
