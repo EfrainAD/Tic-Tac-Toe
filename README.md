@@ -1,7 +1,10 @@
-# Tic-Tac-Toe
-Tic-Tac-Toe game for weekend HW 1 project on week 1
+# Deployment Link
+https://efrainad.github.io/Tic-Tac-Toe/
 
-# Overcomeing challenge
+# Tic-Tac-Toe
+Tic-Tac-Toe game for weekend HW 1 project on week 1, now been redone.
+
+# Overcomeing Challenge
 When displaying multiple error messages:
 Switching from display: none to Display block too fast made it to where the animation wouldn't work. I found nothing online to tell me why I had this problem, and had to add another setTimeout to get around it. (It displayed just fine, without the animation though.)
 
