@@ -361,6 +361,8 @@ const handleAiMenuAnimation = () => {
 }
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
+document.querySelectorAll('.player-symble-otions').forEach(selecter => selecter.addEventListener('change', gameReset))
+document.querySelectorAll('input').forEach(selecter => selecter.addEventListener('change', gameReset))
 playerAiField.addEventListener('click', handleAiMenuAnimation)
 document.querySelector('#game-mode-3').addEventListener('click', setBoardToTicTacToe)
 document.querySelector('#game-mode-4').addEventListener('click', setBoardToConnect4)
