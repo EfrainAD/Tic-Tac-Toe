@@ -69,7 +69,7 @@ input {
 .Tic-Tac-Toe-Boxs {
     height: 6.4vw;
     width: 6.4vw;
-    font-size: 5.4vw;
+    font-size: 5vw;
     padding: 0 0 0.1rem 0;
     margin: 0;
     border: 1px solid black; 
@@ -258,7 +258,7 @@ input:checked + .slider:before {
     .Tic-Tac-Toe-Boxs {
         height: 8.6vw;
         width: 8.6vw;
-        font-size: 8vw;
+        font-size: 7vw;
     }
     input {
         width: 40%;
