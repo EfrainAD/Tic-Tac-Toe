@@ -181,6 +181,7 @@ input:checked + .slider:before {
     -ms-transform: translateX(2.5rem);
     transform: translateX(2.5rem);
 }
+/* error message model */
 .error-message-container {
     background: black;
 }
@@ -200,7 +201,7 @@ input:checked + .slider:before {
     -o-animation: fadeInAndOut 5s;
     -ms-animation: fadeInAndOut 5s;
   }
-  .error-message {
+.error-message {
     position: relative;
     width: 80%;
     max-width: 60rem;
@@ -208,7 +209,44 @@ input:checked + .slider:before {
     margin:  25% auto;
     padding: 2rem;
     border: 1px solid #777;
-  }
+}
+/* How to play Model */
+.how-to-play-link {
+    cursor: pointer;
+}
+.modal-container {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+    animation: fadeIn 5s;
+    -webkit-animation: fadeIn 5s;
+    -moz-animation: fadeIn 5s;
+    -o-animation: fadeIn 5s;
+    -ms-animation: fadeIn 5s;
+}
+.modal-msg {
+    position: relative;
+    width: 80%;
+    max-width: 60rem;
+    background-color: #eee;
+    margin:  25% auto;
+    padding: 2rem;
+    border: 1px solid #777;
+}
+.fadeIn {
+    display: block;
+    animation: fadeIn 1s;
+}
+.fadeOut {
+    display: block;
+    animation: fadeOut 1s;
+}
 /* Player 1 & 2 selection options optoin */
 .players-symble-container {
     margin: 0.8rem;
@@ -247,6 +285,14 @@ input:checked + .slider:before {
 @keyframes fadeInAndOut {
     0% {opacity: 0;}
     50% {opacity: 1;}
+    100% {opacity: 0;}
+}
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+@keyframes fadeOut {
+    0% {opacity: 1;}
     100% {opacity: 0;}
 }
 @media screen and (max-width: 600px) {

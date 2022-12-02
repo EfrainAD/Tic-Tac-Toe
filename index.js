@@ -361,11 +361,25 @@ const handleAiMenuAnimation = () => {
 }
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
+document.querySelector('#game-mode-3').addEventListener('click', setBoardToTicTacToe)
+document.querySelector('#game-mode-4').addEventListener('click', setBoardToConnect4)
 document.querySelectorAll('.player-symble-otions').forEach(selecter => selecter.addEventListener('change', gameReset))
 document.querySelectorAll('input').forEach(selecter => selecter.addEventListener('change', gameReset))
 playerAiField.addEventListener('click', handleAiMenuAnimation)
-document.querySelector('#game-mode-3').addEventListener('click', setBoardToTicTacToe)
-document.querySelector('#game-mode-4').addEventListener('click', setBoardToConnect4)
+document.querySelector('.how-to-play-link').addEventListener('click', () => {
+    const container = document.querySelector('.how-to-play-container')
+    // show modal with animation
+    container.classList.add('fadeIn')
+    // close modal with animation
+    container.addEventListener('click', () => {
+        container.classList.add('fadeOut')
+        // Clean up
+        setTimeout(() => {
+            container.classList.remove('fadeIn')
+            container.classList.remove('fadeOut')
+        }, 1000);
+    })
+})
 
 //Game starts Here. If AI is first player, The AI needs move before user does anything.
 createGameBoard()
