@@ -84,6 +84,9 @@ input {
 .game-mode-btn {
     margin: 0.5rem;
 }
+.active-mode-btn {
+    background-color: #cacaca;
+}
 #game-mode-3 {
     border: black solid 1.5px;
     border-right: black solid 1px;

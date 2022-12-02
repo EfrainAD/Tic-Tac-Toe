@@ -8,6 +8,8 @@ const COLUMNS = 7
 const ROWSLIMIT = 10
 const COLUMNSLIMIT = 10
 // Game Control (Control Pannel) Fields
+const gameMode3 = document.querySelector('#game-mode-3')
+const gameMode4 = document.querySelector('#game-mode-4')
 const columnField = document.querySelector('#columns')
 const winConditionField = document.querySelector('#win-condition')
 const rowField = document.querySelector('#rows')
@@ -225,6 +227,14 @@ const importWinCondition = (msgStack) => {
     else
         winCondition = parseInt(winConditionField.value)
 }
+const updateActiveModeBtn = () => {
+    gameMode3.classList.remove('active-mode-btn')
+    gameMode4.classList.remove('active-mode-btn')
+    if (rows === 3 && columns === 3 && winCondition === 3)
+        gameMode3.classList.add('active-mode-btn')
+    else if (rows === 6 && columns === 7 && winCondition === 4)
+        gameMode4.classList.add('active-mode-btn')
+}
 const gameReset = () => {
     const msgStack = []
     turnCounter = 0
@@ -241,6 +251,7 @@ const gameReset = () => {
     // Remove the gameboard and remake it.
     updateMessageBoard('whosTurn')
     updateScoreBoard()
+    updateActiveModeBtn()
     createGameBoard()
     if(whosTurn === playerAI)
         aiToMove()
@@ -251,7 +262,7 @@ const placeMove = (id) => {
     // Mark the box
     selectedBox.innerText = whosTurn
     // Disable the box just clicked on, so it can't be used.
-    selectedBox.disabled = true
+    selectedBox.removeEventListener('click', boxClicked)
     // Updats the turnCounter so the game end if there is a tie.
     turnCounter++
     if (winnerCheck.check(selectedBox.id, whosTurn, winCondition)) {
@@ -361,8 +372,8 @@ const handleAiMenuAnimation = () => {
 }
 //addEventListener to the reset game button
 document.querySelector('#game-reset').addEventListener('click', gameReset)
-document.querySelector('#game-mode-3').addEventListener('click', setBoardToTicTacToe)
-document.querySelector('#game-mode-4').addEventListener('click', setBoardToConnect4)
+gameMode3.addEventListener('click', setBoardToTicTacToe)
+gameMode4.addEventListener('click', setBoardToConnect4)
 document.querySelectorAll('.player-symble-otions').forEach(selecter => selecter.addEventListener('change', gameReset))
 document.querySelectorAll('input').forEach(selecter => selecter.addEventListener('change', gameReset))
 playerAiField.addEventListener('click', handleAiMenuAnimation)
