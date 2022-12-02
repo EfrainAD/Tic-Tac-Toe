@@ -251,7 +251,7 @@ const placeMove = (id) => {
     // Mark the box
     selectedBox.innerText = whosTurn
     // Disable the box just clicked on, so it can't be used.
-    selectedBox.disabled = true
+    selectedBox.removeEventListener('click', boxClicked)
     // Updats the turnCounter so the game end if there is a tie.
     turnCounter++
     if (winnerCheck.check(selectedBox.id, whosTurn, winCondition)) {
